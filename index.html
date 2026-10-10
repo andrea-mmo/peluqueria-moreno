@@ -246,6 +246,41 @@
   track.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
   update();
+
+  // Avance automático: se detiene mientras alguien interactúa con las reseñas
+  var section = track.closest('.reviews');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var timer = null;
+
+  function advance() {
+    var max = track.scrollWidth - track.clientWidth - 2;
+    if (track.scrollLeft >= max) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: step(), behavior: 'smooth' });
+    }
+  }
+
+  function play() {
+    if (reduceMotion || timer || document.hidden) return;
+    timer = setInterval(advance, 5000);
+  }
+
+  function pause() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  section.addEventListener('mouseenter', pause);
+  section.addEventListener('mouseleave', play);
+  section.addEventListener('focusin', pause);
+  section.addEventListener('focusout', play);
+  track.addEventListener('touchstart', pause, { passive: true });
+  track.addEventListener('touchend', function () { setTimeout(play, 4000); }, { passive: true });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) pause(); else play();
+  });
+  play();
 })();
 </script>
 
