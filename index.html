@@ -121,22 +121,52 @@
   </section>
 
   <section class="container reviews">
-    <h2>Las clientas cuentan</h2>
-    <p class="section-intro small">Aquí irán reseñas reales de Google, con permiso de quien las escribió.</p>
-    <div class="review-grid">
-      <blockquote class="review">
-        <p>[Reseña real de Google]</p>
-        <footer>[Nombre de la clienta]</footer>
-      </blockquote>
-      <blockquote class="review">
-        <p>[Reseña real de Google]</p>
-        <footer>[Nombre de la clienta]</footer>
-      </blockquote>
-      <blockquote class="review">
-        <p>[Reseña real de Google]</p>
-        <footer>[Nombre de la clienta]</footer>
-      </blockquote>
+    <div class="reviews-head">
+      <div>
+        <h2>Las clientas cuentan</h2>
+        <p class="section-intro small">Reseñas reales de Google: 4,7 de 5 con 31 opiniones. <a href="https://www.google.com/maps/place/Peluqueria+Milagros+Moreno/@39.459234,-0.3642038,17z/data=!4m8!3m7!1s0xd6048c5e9e91f99:0x42a30439616dc2f0!8m2!3d39.459234!4d-0.3642038!9m1!1b1!16s%2Fg%2F11cmf_xttm" target="_blank" rel="noopener">Ver todas en Google</a></p>
+      </div>
+      <div class="carousel-nav">
+        <button type="button" class="carousel-btn" data-dir="-1" aria-label="Reseñas anteriores">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+        </button>
+        <button type="button" class="carousel-btn" data-dir="1" aria-label="Reseñas siguientes">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      </div>
     </div>
+    <ul class="review-track" tabindex="0" aria-label="Reseñas de clientas">
+        <li class="review">
+          <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
+          <blockquote>Me encanta ir a su peluquería. Os la recomiendo. Lleva muchísimos años aquí, y es una persona muy agradable, amable y simpática. Su trabajo es impecable y es una artista, siempre que voy salgo súper contenta del gran trabajo que hace. No cambio de peluquera. Además, es un sitio muy acogedor y te hace sentir como en casa.</blockquote>
+          <footer>Andrea</footer>
+        </li>
+        <li class="review">
+          <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
+          <blockquote>Una peluquera fantástica, amable con los clientes, simpática, hace muy bien su trabajo, y es el precio razonable, por mi experiencia con ella me acertó con mi pelo, la recomiendo.</blockquote>
+          <footer>Beatriz Aguilar Barba</footer>
+        </li>
+        <li class="review">
+          <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
+          <blockquote>Confié en Milagros para arreglarme el pelo después del último corte que me habían hecho. Trato muy profesional y cercano. Quedé muy contenta con el corte que me hizo. Precio muy asequible. La recomiendo 100%.</blockquote>
+          <footer>Magrapa</footer>
+        </li>
+        <li class="review">
+          <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
+          <blockquote>Se nota que lleva muchos años en la profesión y que se recicla para ofrecer las novedades. Siempre me aconseja según mis facciones y mi tipo de pelo (que es demasiado liso) y acierta.</blockquote>
+          <footer>Yolanda Ramón</footer>
+        </li>
+        <li class="review">
+          <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
+          <blockquote>Recomendable 100%. Soy de fuera (Canarias) y al llegar a Valencia necesitaba con urgencia alguna peluquería que me arreglase un desastre. Me informé, pregunté y al final acabé en Peluquería Moreno: trato estupendo, agradable […] Supo solucionarme el desastre y además dejarme súper contenta con el resultado final. ¡Mil gracias!</blockquote>
+          <footer>Karla Bernete</footer>
+        </li>
+        <li class="review">
+          <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
+          <blockquote>Es una peluquería que da gusto ir, el trato personal es de total confianza, siempre está dispuesta a asesorarte para que el resultado sea el que buscas. Es el tipo de comercio profesional y cercano que siempre busco.</blockquote>
+          <footer>Jose G</footer>
+        </li>
+    </ul>
   </section>
 </main>
 
@@ -189,6 +219,35 @@
     </div>
   </div>
 </footer>
+
+<script>
+(function () {
+  var track = document.querySelector('.review-track');
+  var buttons = document.querySelectorAll('.carousel-btn');
+  if (!track) return;
+
+  function step() {
+    var card = track.querySelector('.review');
+    return card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap);
+  }
+
+  function update() {
+    var max = track.scrollWidth - track.clientWidth - 2;
+    buttons[0].disabled = track.scrollLeft <= 2;
+    buttons[1].disabled = track.scrollLeft >= max;
+  }
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      track.scrollBy({ left: Number(btn.dataset.dir) * step(), behavior: 'smooth' });
+    });
+  });
+
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
 
 </body>
 </html>
