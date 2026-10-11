@@ -232,7 +232,7 @@ h1 {
 
 .placeholder-hero {
   height: 540px;
-  border-radius: 24px;
+  border-radius: 24px 24px 24px 220px;
 }
 
 .seal {
