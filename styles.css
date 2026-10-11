@@ -223,6 +223,13 @@ h1 {
   padding: 32px;
 }
 
+.photo {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
 .placeholder-hero {
   height: 540px;
   border-radius: 24px;
