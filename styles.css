@@ -383,17 +383,19 @@ h2 {
 
 .products .section-intro {
   max-width: none;
+}
+
+.products .reviews-head {
   margin-bottom: 40px;
 }
 
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px 24px;
+.products .carousel-nav {
+  display: none;
 }
 
 .product {
   min-width: 0;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -465,7 +467,8 @@ h2 {
   cursor: default;
 }
 
-.review-track {
+.review-track,
+.product-track {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -474,10 +477,22 @@ h2 {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+}
+
+.review-track {
   border-radius: 24px;
 }
 
-.review-track::-webkit-scrollbar {
+/* En pantallas anchas los productos van en rejilla; el carrusel es solo para móvil */
+.product-track {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 24px;
+  overflow: visible;
+}
+
+.review-track::-webkit-scrollbar,
+.product-track::-webkit-scrollbar {
   display: none;
 }
 
@@ -653,9 +668,18 @@ address {
     flex-basis: 86%;
   }
 
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px 16px;
+  .products .carousel-nav {
+    display: flex;
+  }
+
+  .product-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+  }
+
+  .product {
+    flex: 0 0 calc((100% - 16px) / 2);
   }
 }
 

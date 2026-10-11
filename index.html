@@ -94,40 +94,52 @@
   </section>
 
   <section id="productos" class="container products">
-    <h2>Para cuidarte en casa</h2>
-    <p class="section-intro">Los productos que uso en el salón y te recomiendo. Pregúntame por WhatsApp o pásate a verlos.</p>
-    <div class="product-grid">
-      <article class="product">
+    <div class="reviews-head">
+      <div>
+        <h2>Para cuidarte en casa</h2>
+        <p class="section-intro">Los productos que uso en el salón y te recomiendo. Pregúntame por WhatsApp o pásate a verlos.</p>
+      </div>
+      <div class="carousel-nav">
+        <button type="button" class="carousel-btn" data-dir="-1" aria-label="Productos anteriores">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+        </button>
+        <button type="button" class="carousel-btn" data-dir="1" aria-label="Productos siguientes">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      </div>
+    </div>
+    <ul class="product-track" tabindex="0" aria-label="Productos">
+      <li class="product">
         <img class="product-photo" src="Imagenes/Productos/champu-keratin.png" alt="Champú reestructurante Ice Cream Keratin de Inebrya" loading="lazy">
         <div class="product-name">Champú Keratin</div>
         <div class="product-note">Reestructurante</div>
-      </article>
-      <article class="product">
+      </li>
+      <li class="product">
         <img class="product-photo" src="Imagenes/Productos/mascarilla-keratin.png" alt="Mascarilla reestructurante Ice Cream Keratin de Inebrya" loading="lazy">
         <div class="product-name">Mascarilla Keratin</div>
         <div class="product-note">Reestructurante</div>
-      </article>
-      <article class="product">
+      </li>
+      <li class="product">
         <img class="product-photo" src="Imagenes/Productos/mascarilla-color-perfect.png" alt="Mascarilla Color Perfect de Inebrya" loading="lazy">
         <div class="product-name">Mascarilla Color Perfect</div>
         <div class="product-note">Protege el color</div>
-      </article>
-      <article class="product">
+      </li>
+      <li class="product">
         <img class="product-photo" src="Imagenes/Productos/champu-no-yellow.png" alt="Champú No-Yellow Blondesse de Inebrya" loading="lazy">
         <div class="product-name">Champú No-Yellow</div>
         <div class="product-note">Antiamarillo</div>
-      </article>
-      <article class="product">
+      </li>
+      <li class="product">
         <img class="product-photo" src="Imagenes/Productos/mascarilla-no-yellow.png" alt="Mascarilla No-Yellow Blondesse de Inebrya" loading="lazy">
         <div class="product-name">Mascarilla No-Yellow</div>
         <div class="product-note">Antiamarillo</div>
-      </article>
-      <article class="product">
+      </li>
+      <li class="product">
         <img class="product-photo" src="Imagenes/Productos/mascarilla-shecare-repair.png" alt="Mascarilla Shecare Repair de Inebrya" loading="lazy">
         <div class="product-name">Mascarilla Shecare Repair</div>
         <div class="product-note">Reparadora e iluminadora</div>
-      </article>
-    </div>
+      </li>
+    </ul>
   </section>
 
   <section class="container reviews">
@@ -231,13 +243,13 @@
 </footer>
 
 <script>
-(function () {
-  var track = document.querySelector('.review-track');
-  var buttons = document.querySelectorAll('.carousel-btn');
+function carousel(track, autoplay) {
   if (!track) return;
+  var section = track.closest('section');
+  var buttons = section.querySelectorAll('.carousel-btn');
 
   function step() {
-    var card = track.querySelector('.review');
+    var card = track.firstElementChild;
     return card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap);
   }
 
@@ -257,8 +269,9 @@
   window.addEventListener('resize', update);
   update();
 
-  // Avance automático: se detiene mientras alguien interactúa con las reseñas
-  var section = track.closest('.reviews');
+  if (!autoplay) return;
+
+  // Avance automático: se detiene mientras alguien interactúa con el carrusel
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var timer = null;
 
@@ -291,7 +304,10 @@
     if (document.hidden) pause(); else play();
   });
   play();
-})();
+}
+
+carousel(document.querySelector('.product-track'), false);
+carousel(document.querySelector('.review-track'), true);
 </script>
 
 </body>
