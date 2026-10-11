@@ -17,6 +17,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Deja sitio a la cabecera fija al saltar a una sección */
+  scroll-padding-top: 60px;
 }
 
 body {
@@ -64,9 +66,17 @@ a:hover {
   color: var(--sand);
 }
 
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+}
+
 .topbar {
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -680,10 +690,14 @@ address {
     font-size: 34px;
   }
 
+  html {
+    scroll-padding-top: 90px;
+  }
+
   .topbar {
-    padding-top: 14px;
+    padding-top: 10px;
     padding-bottom: 0;
-    gap: 12px;
+    gap: 8px 12px;
   }
 
   .logo {
@@ -709,7 +723,7 @@ address {
   }
 
   .nav a {
-    padding: 12px 0;
+    padding: 9px 0;
   }
 
   .lead {
