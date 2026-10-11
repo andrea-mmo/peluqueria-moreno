@@ -395,9 +395,6 @@ h2 {
 
 .product {
   min-width: 0;
-  /* Fondo propio para que la foto se funda con él también dentro del carrusel (Safari) */
-  background: var(--cream);
-  isolation: isolate;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -411,9 +408,6 @@ h2 {
   margin: 0 auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  /* Funde el fondo gris claro de las fotos con el color de la página */
-  filter: brightness(1.033);
-  mix-blend-mode: multiply;
 }
 
 .product-name {
