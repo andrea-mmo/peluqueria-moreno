@@ -455,6 +455,61 @@ h2 {
   color: var(--ink-muted);
 }
 
+.product-tag,
+.product-ask {
+  display: none;
+}
+
+/* En escritorio cada producto va en su tarjeta de color, con etiqueta y enlace a WhatsApp */
+@media (min-width: 721px) {
+  .product {
+    background: var(--peach);
+    border-radius: 16px;
+    padding: 12px 20px 28px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .product:nth-child(even) {
+    background: var(--sand);
+  }
+
+  .product:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgba(59, 42, 36, 0.12);
+  }
+
+  /* Funde el fondo crema de la foto con el color de la tarjeta */
+  .product-photo {
+    filter: brightness(1.1);
+    mix-blend-mode: multiply;
+  }
+
+  .product-tag {
+    display: block;
+    align-self: center;
+    margin: 4px 0 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--accent-dark);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .product-ask {
+    display: block;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .product-ask:hover {
+    text-decoration: underline;
+  }
+}
+
 .reviews {
   padding-bottom: 96px;
 }
