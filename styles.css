@@ -272,8 +272,8 @@ h1 {
 
 .seal {
   position: absolute;
-  right: -22px;
-  top: -22px;
+  left: -2px;
+  bottom: -2px;
   width: 132px;
   height: 132px;
   border-radius: 999px;
@@ -771,13 +771,6 @@ address {
 
   .placeholder-hero {
     height: 380px;
-  }
-
-  .seal {
-    right: -8px;
-    top: -18px;
-    width: 116px;
-    height: 116px;
   }
 
   .services,
