@@ -823,18 +823,20 @@ address {
   }
 
   .logo {
-    font-size: 21px;
+    font-size: 20px;
     line-height: 1.2;
     white-space: nowrap;
   }
 
   .topbar .topbar-cta {
-    padding: 9px 18px;
+    padding: 9px 14px;
+    gap: 6px;
     font-size: 16px;
   }
 
   .topbar-cta svg {
-    display: none;
+    width: 16px;
+    height: 16px;
   }
 
   /* Los enlaces pasan a una fila propia, repartidos a lo ancho */
@@ -954,6 +956,11 @@ address {
 
   .logo {
     font-size: 17px;
+  }
+
+  /* En pantallas muy estrechas no cabe el icono junto al nombre */
+  .topbar-cta svg {
+    display: none;
   }
 
   .topbar .topbar-cta {
