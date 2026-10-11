@@ -272,12 +272,13 @@ h1 {
 
 .seal {
   position: absolute;
-  left: 20px;
-  bottom: 32px;
+  right: -22px;
+  top: -22px;
   width: 132px;
   height: 132px;
   border-radius: 999px;
   background: var(--ink);
+  box-shadow: 0 0 0 7px var(--cream);
   color: var(--cream);
   display: flex;
   flex-direction: column;
@@ -770,6 +771,13 @@ address {
 
   .placeholder-hero {
     height: 380px;
+  }
+
+  .seal {
+    right: -8px;
+    top: -18px;
+    width: 116px;
+    height: 116px;
   }
 
   .services,
