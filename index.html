@@ -328,7 +328,8 @@ function carousel(track, autoplay) {
 
   function play() {
     if (reduceMotion || timer || document.hidden) return;
-    timer = setInterval(advance, 4000);
+    // Más despacio en móvil, donde solo se ve una reseña a la vez
+    timer = setInterval(advance, window.matchMedia('(max-width: 720px)').matches ? 4000 : 3000);
   }
 
   function pause() {
