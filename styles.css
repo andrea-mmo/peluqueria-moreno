@@ -267,6 +267,7 @@ h1 {
 
 .placeholder-hero {
   height: 540px;
+  object-position: 54% 50%;
   border-radius: 24px 24px 24px 220px;
 }
 
@@ -388,11 +389,12 @@ h2 {
 .placeholder-about {
   flex: 1 1 340px;
   min-width: 0;
-  height: 460px;
+  height: auto;
+  aspect-ratio: 1445 / 1088;
   background: #EBC9AF;
   border-color: #B88868;
   color: var(--ink-soft);
-  border-radius: 24px 24px 220px 24px;
+  border-radius: 24px 24px 160px 24px;
 }
 
 .about-text {
@@ -835,6 +837,10 @@ address {
 
   .placeholder-hero {
     height: 380px;
+  }
+
+  .placeholder-about {
+    border-radius: 24px 24px 110px 24px;
   }
 
   .services,
