@@ -18,7 +18,7 @@
 html {
   scroll-behavior: smooth;
   /* Deja sitio a la cabecera fija al saltar a una sección */
-  scroll-padding-top: 60px;
+  scroll-padding-top: 76px;
 }
 
 body {
@@ -105,6 +105,35 @@ a:hover {
 
 .nav a:hover {
   color: var(--accent);
+}
+
+.topbar .topbar-cta {
+  gap: 8px;
+  padding: 8px 18px;
+  font-size: 16px;
+}
+
+/* En escritorio: cabecera más baja, subrayado al pasar el ratón y una raya entre el menú y el botón */
+@media (min-width: 721px) {
+  .topbar {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .nav {
+    padding-right: 32px;
+    border-right: 1px solid var(--sand);
+  }
+
+  .nav a {
+    padding: 2px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .nav a:hover {
+    border-bottom-color: var(--accent);
+  }
 }
 
 .btn {
@@ -709,6 +738,10 @@ address {
   .topbar .topbar-cta {
     padding: 9px 18px;
     font-size: 16px;
+  }
+
+  .topbar-cta svg {
+    display: none;
   }
 
   /* Los enlaces pasan a una fila propia, repartidos a lo ancho */
