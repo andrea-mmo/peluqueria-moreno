@@ -159,34 +159,76 @@
     </div>
     <ul class="review-track" tabindex="0" aria-label="Reseñas de clientas">
         <li class="review">
+          <div class="review-head">
+            <div class="avatar" style="background: #7B1FA2" aria-hidden="true">A</div>
+            <div class="review-who">
+              <div class="review-name">Andrea</div>
+              <div class="review-source">Reseña en Google</div>
+            </div>
+          </div>
           <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
           <blockquote>Me encanta ir a su peluquería. Os la recomiendo. Lleva muchísimos años aquí, y es una persona muy agradable, amable y simpática. Su trabajo es impecable y es una artista, siempre que voy salgo súper contenta del gran trabajo que hace. No cambio de peluquera. Además, es un sitio muy acogedor y te hace sentir como en casa.</blockquote>
-          <footer>Andrea</footer>
+          <button type="button" class="review-more" hidden>Leer más</button>
         </li>
         <li class="review">
+          <div class="review-head">
+            <div class="avatar" style="background: #00897B" aria-hidden="true">B</div>
+            <div class="review-who">
+              <div class="review-name">Beatriz Aguilar Barba</div>
+              <div class="review-source">Reseña en Google</div>
+            </div>
+          </div>
           <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
           <blockquote>Una peluquera fantástica, amable con los clientes, simpática, hace muy bien su trabajo, y es el precio razonable, por mi experiencia con ella me acertó con mi pelo, la recomiendo.</blockquote>
-          <footer>Beatriz Aguilar Barba</footer>
+          <button type="button" class="review-more" hidden>Leer más</button>
         </li>
         <li class="review">
+          <div class="review-head">
+            <div class="avatar" style="background: #EF6C00" aria-hidden="true">M</div>
+            <div class="review-who">
+              <div class="review-name">Magrapa</div>
+              <div class="review-source">Reseña en Google</div>
+            </div>
+          </div>
           <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
           <blockquote>Confié en Milagros para arreglarme el pelo después del último corte que me habían hecho. Trato muy profesional y cercano. Quedé muy contenta con el corte que me hizo. Precio muy asequible. La recomiendo 100%.</blockquote>
-          <footer>Magrapa</footer>
+          <button type="button" class="review-more" hidden>Leer más</button>
         </li>
         <li class="review">
+          <div class="review-head">
+            <div class="avatar" style="background: #5C6BC0" aria-hidden="true">Y</div>
+            <div class="review-who">
+              <div class="review-name">Yolanda Ramón</div>
+              <div class="review-source">Reseña en Google</div>
+            </div>
+          </div>
           <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
           <blockquote>Se nota que lleva muchos años en la profesión y que se recicla para ofrecer las novedades. Siempre me aconseja según mis facciones y mi tipo de pelo (que es demasiado liso) y acierta.</blockquote>
-          <footer>Yolanda Ramón</footer>
+          <button type="button" class="review-more" hidden>Leer más</button>
         </li>
         <li class="review">
+          <div class="review-head">
+            <div class="avatar" style="background: #C2185B" aria-hidden="true">K</div>
+            <div class="review-who">
+              <div class="review-name">Karla Bernete</div>
+              <div class="review-source">Reseña en Google</div>
+            </div>
+          </div>
           <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
           <blockquote>Recomendable 100%. Soy de fuera (Canarias) y al llegar a Valencia necesitaba con urgencia alguna peluquería que me arreglase un desastre. Me informé, pregunté y al final acabé en Peluquería Moreno: trato estupendo, agradable […] Supo solucionarme el desastre y además dejarme súper contenta con el resultado final. ¡Mil gracias!</blockquote>
-          <footer>Karla Bernete</footer>
+          <button type="button" class="review-more" hidden>Leer más</button>
         </li>
         <li class="review">
+          <div class="review-head">
+            <div class="avatar" style="background: #0288D1" aria-hidden="true">J</div>
+            <div class="review-who">
+              <div class="review-name">Jose G</div>
+              <div class="review-source">Reseña en Google</div>
+            </div>
+          </div>
           <div class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</div>
           <blockquote>Es una peluquería que da gusto ir, el trato personal es de total confianza, siempre está dispuesta a asesorarte para que el resultado sea el que buscas. Es el tipo de comercio profesional y cercano que siempre busco.</blockquote>
-          <footer>Jose G</footer>
+          <button type="button" class="review-more" hidden>Leer más</button>
         </li>
     </ul>
   </section>
@@ -305,6 +347,20 @@ function carousel(track, autoplay) {
   });
   play();
 }
+
+// «Leer más» solo en las reseñas que no caben enteras
+window.addEventListener('load', function () {
+  document.querySelectorAll('.review').forEach(function (card) {
+    var text = card.querySelector('blockquote');
+    var more = card.querySelector('.review-more');
+    if (text.scrollHeight <= text.clientHeight + 1) return;
+    more.hidden = false;
+    more.addEventListener('click', function () {
+      var open = text.classList.toggle('open');
+      more.textContent = open ? 'Leer menos' : 'Leer más';
+    });
+  });
+});
 
 carousel(document.querySelector('.product-track'), false);
 carousel(document.querySelector('.review-track'), true);
