@@ -402,11 +402,13 @@ h2 {
 
 .product-photo {
   display: block;
-  width: 100%;
+  width: 76%;
+  margin: 0 auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 20px;
-  margin-bottom: 8px;
+  /* Funde el fondo gris claro de las fotos con el color de la página */
+  filter: brightness(1.033);
+  mix-blend-mode: multiply;
 }
 
 .product-name {
