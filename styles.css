@@ -457,6 +457,8 @@ h2 {
 
 /* Cada producto va en su tarjeta de color, con etiqueta y enlace a WhatsApp */
 .product {
+  position: relative;
+  overflow: hidden;
   background: var(--peach);
   border-radius: 16px;
   padding: 12px 20px 28px;
@@ -467,10 +469,23 @@ h2 {
   background: var(--sand);
 }
 
-/* Funde el fondo crema de la foto con el color de la tarjeta */
-.product-photo {
-  filter: brightness(1.1);
-  mix-blend-mode: multiply;
+/* Cinta en diagonal en la esquina de los productos más pedidos */
+.product-ribbon {
+  position: absolute;
+  top: 24px;
+  right: -44px;
+  z-index: 1;
+  width: 170px;
+  padding: 7px 0;
+  transform: rotate(45deg);
+  background: var(--accent);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .product-tag {
@@ -862,7 +877,16 @@ address {
 
   .product {
     flex: 0 0 calc((100% - 16px) / 2);
-    padding: 8px 12px 20px;
+    /* Más aire arriba para que la cinta no toque los tarros */
+    padding: 26px 12px 20px;
+  }
+
+  .product-ribbon {
+    top: 17px;
+    right: -53px;
+    padding: 4px 0;
+    font-size: 9px;
+    letter-spacing: 0.02em;
   }
 
   .product-photo {
