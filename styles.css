@@ -76,6 +76,7 @@ a:hover {
 
 .logo {
   font-size: 28px;
+  margin-right: auto;
 }
 
 .nav {
@@ -116,11 +117,6 @@ a:hover {
 
 .btn-primary {
   background: var(--accent);
-  color: var(--white);
-}
-
-.nav a.btn-primary,
-.nav a.btn-primary:hover {
   color: var(--white);
 }
 
@@ -684,6 +680,38 @@ address {
     font-size: 34px;
   }
 
+  .topbar {
+    padding-top: 14px;
+    padding-bottom: 0;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 21px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .topbar .topbar-cta {
+    padding: 9px 18px;
+    font-size: 16px;
+  }
+
+  /* Los enlaces pasan a una fila propia, repartidos a lo ancho */
+  .nav {
+    order: 3;
+    flex: 1 1 100%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0;
+    border-top: 1px solid var(--line);
+    font-size: 16px;
+  }
+
+  .nav a {
+    padding: 12px 0;
+  }
+
   .lead {
     font-size: 19px;
   }
@@ -743,5 +771,24 @@ address {
 @media (min-width: 721px) and (max-width: 1000px) {
   .review {
     flex-basis: calc((100% - 40px) / 3);
+  }
+}
+
+@media (max-width: 370px) {
+  .topbar {
+    gap: 8px;
+  }
+
+  .logo {
+    font-size: 17px;
+  }
+
+  .topbar .topbar-cta {
+    padding: 8px 12px;
+    font-size: 15px;
+  }
+
+  .nav {
+    font-size: 15px;
   }
 }
