@@ -993,6 +993,52 @@ address {
   }
 }
 
+/* Tablet: el menú baja a su propia fila, la portada sigue en dos columnas y los servicios van de dos en dos */
+@media (min-width: 721px) and (max-width: 980px) {
+  html {
+    scroll-padding-top: 116px;
+  }
+
+  .topbar {
+    padding-bottom: 0;
+    gap: 10px 16px;
+  }
+
+  .nav {
+    order: 3;
+    flex: 1 1 100%;
+    justify-content: center;
+    gap: 0 48px;
+    padding-right: 0;
+    border-right: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .nav a {
+    padding: 8px 0 6px;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  .hero {
+    gap: 40px;
+  }
+
+  .hero-text {
+    flex-basis: 330px;
+  }
+
+  .hero-photo {
+    flex-basis: 290px;
+  }
+
+  .card {
+    flex-basis: 300px;
+  }
+}
+
 @media (max-width: 370px) {
   .topbar {
     gap: 8px;
