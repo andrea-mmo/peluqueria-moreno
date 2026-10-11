@@ -387,32 +387,34 @@ h2 {
 }
 
 .product-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 24px;
 }
 
 .product {
-  flex: 1 1 240px;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
 }
 
-.placeholder-product {
-  height: 240px;
+.product-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   border-radius: 20px;
-  font-size: 16px;
-  padding: 12px;
+  margin-bottom: 8px;
 }
 
 .product-name {
   font-weight: 700;
 }
 
-.product-price {
-  color: var(--ink-soft);
+.product-note {
+  font-size: 16px;
+  color: var(--ink-muted);
 }
 
 .reviews {
@@ -646,6 +648,11 @@ address {
 
   .review {
     flex-basis: 86%;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 16px;
   }
 }
 
