@@ -66,6 +66,18 @@ a:hover {
   color: var(--sand);
 }
 
+/* Franja fina sobre la barra; no es fija, se va al bajar por la página */
+.strip {
+  background: var(--ink);
+  color: var(--cream);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 12px;
+}
+
 .site-header {
   position: sticky;
   top: 0;
