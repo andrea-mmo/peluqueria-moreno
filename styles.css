@@ -794,6 +794,37 @@ address {
   color: var(--white);
 }
 
+.legal-only {
+  border-top: 0;
+}
+
+/* Página de aviso legal, privacidad y cookies */
+.legal-page {
+  max-width: 820px;
+  padding-top: 56px;
+  padding-bottom: 88px;
+}
+
+.legal-page h1 {
+  font-size: clamp(32px, 6vw, 44px);
+  line-height: 1.15;
+}
+
+.legal-page h2 {
+  font-size: 28px;
+  margin-top: 48px;
+}
+
+.legal-page p,
+.legal-page ul {
+  margin: 16px 0 0;
+  color: var(--ink-soft);
+}
+
+.legal-page ul {
+  padding-left: 22px;
+}
+
 @media (max-width: 720px) {
   body {
     font-size: 17px;
