@@ -455,58 +455,52 @@ h2 {
   color: var(--ink-muted);
 }
 
-.product-tag,
-.product-ask {
-  display: none;
+/* Cada producto va en su tarjeta de color, con etiqueta y enlace a WhatsApp */
+.product {
+  background: var(--peach);
+  border-radius: 16px;
+  padding: 12px 20px 28px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* En escritorio cada producto va en su tarjeta de color, con etiqueta y enlace a WhatsApp */
+.product:nth-child(even) {
+  background: var(--sand);
+}
+
+/* Funde el fondo crema de la foto con el color de la tarjeta */
+.product-photo {
+  filter: brightness(1.1);
+  mix-blend-mode: multiply;
+}
+
+.product-tag {
+  align-self: center;
+  margin: 4px 0 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--accent-dark);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.product-ask {
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.product-ask:hover {
+  text-decoration: underline;
+}
+
 @media (min-width: 721px) {
-  .product {
-    background: var(--peach);
-    border-radius: 16px;
-    padding: 12px 20px 28px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .product:nth-child(even) {
-    background: var(--sand);
-  }
-
   .product:hover {
     transform: translateY(-6px);
     box-shadow: 0 14px 28px rgba(59, 42, 36, 0.12);
-  }
-
-  /* Funde el fondo crema de la foto con el color de la tarjeta */
-  .product-photo {
-    filter: brightness(1.1);
-    mix-blend-mode: multiply;
-  }
-
-  .product-tag {
-    display: block;
-    align-self: center;
-    margin: 4px 0 6px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    background: var(--white);
-    color: var(--accent-dark);
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  .product-ask {
-    display: block;
-    margin-top: 10px;
-    font-size: 15px;
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  .product-ask:hover {
-    text-decoration: underline;
   }
 }
 
@@ -868,6 +862,26 @@ address {
 
   .product {
     flex: 0 0 calc((100% - 16px) / 2);
+    padding: 8px 12px 20px;
+  }
+
+  .product-photo {
+    width: 88%;
+  }
+
+  .product-name {
+    line-height: 1.3;
+  }
+
+  .product-tag {
+    margin-top: 2px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  /* La tarjeta es estrecha: el enlace se queda en «Preguntar →» */
+  .ask-long {
+    display: none;
   }
 }
 
