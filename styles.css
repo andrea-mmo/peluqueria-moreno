@@ -1275,8 +1275,7 @@ a.quiz-link {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 12px;
 }
 
@@ -1284,18 +1283,44 @@ a.quiz-link {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 18px 8px 8px;
+  padding: 8px 14px 8px 8px;
   border-radius: 16px;
   background: var(--peach);
   color: var(--ink);
   font-size: 16px;
   font-weight: 700;
+  line-height: 1.25;
+}
+
+.quiz-products span span {
+  white-space: nowrap;
 }
 
 .quiz-products img {
+  flex: none;
   width: 64px;
   height: 64px;
   object-fit: cover;
+}
+
+/* En el resultado, productos y botones ocupan todo el ancho y miden lo mismo */
+#quiz-result .actions {
+  display: grid;
+}
+
+#quiz-result .actions .btn {
+  justify-content: center;
+}
+
+@media (min-width: 560px) {
+  .quiz-products,
+  #quiz-result .actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quiz-products li:only-child {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 720px) {

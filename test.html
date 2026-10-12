@@ -320,7 +320,15 @@ function fillProducts(list, products) {
     img.src = 'Imagenes/Productos/' + product.img + '?v=3';
     img.alt = '';
     item.appendChild(img);
-    item.appendChild(document.createTextNode(product.name));
+    // Cada palabra va entera, para que «No-Yellow» no se parta por el guion
+    var name = document.createElement('span');
+    product.name.split(' ').forEach(function (word, i) {
+      var part = document.createElement('span');
+      part.textContent = word;
+      if (i) name.appendChild(document.createTextNode(' '));
+      name.appendChild(part);
+    });
+    item.appendChild(name);
     list.appendChild(item);
   });
 }
@@ -479,7 +487,7 @@ function drawCard(result, photos) {
         ctx.font = '700 16px Nunito, sans-serif';
         if (draw) {
           ctx.fillStyle = '#F3D9C4';
-          roundedRect(ctx, left, y, 8 + 64 + 10 + ctx.measureText(product.name).width + 18, 80, 16);
+          roundedRect(ctx, left, y, width, 80, 16);
           ctx.fill();
           var photo = photos[i];
           if (photo) {
