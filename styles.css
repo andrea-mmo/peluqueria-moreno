@@ -797,12 +797,10 @@ address {
 
 .contact-social {
   display: inline-flex;
-  margin-top: 6px;
-  color: var(--sand);
 }
 
 .contact-social:hover {
-  color: var(--white);
+  opacity: 0.85;
 }
 
 .hours {
