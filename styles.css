@@ -98,7 +98,21 @@ a:hover {
 
 .logo {
   font-size: 28px;
+  line-height: 1.1;
   margin-right: auto;
+}
+
+.logo-top {
+  display: block;
+  margin-bottom: 3px;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.55em;
+  font-weight: 700;
+  /* El espaciado hace que «Peluquería» ocupe el mismo ancho que el nombre */
+  letter-spacing: 0.95em;
+  margin-right: -0.95em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
 .nav {
