@@ -1252,6 +1252,11 @@ a.quiz-link {
   border-top: 1px solid var(--line);
 }
 
+.quiz-advice .btn {
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
 .quiz-advice p {
   color: var(--ink-soft);
 }
