@@ -909,20 +909,26 @@ address {
 
 .quiz-banner {
   margin-bottom: 32px;
-  padding: 20px 28px;
-  border-radius: 24px;
+  padding: 8px 8px 8px 24px;
+  /* Mismas esquinas que la tarjeta del test de la portada */
+  border-radius: 18px;
   background: var(--ink);
   color: var(--sand);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 14px 32px;
+  gap: 10px 24px;
 }
 
 .quiz-banner p {
-  flex: 1 1 320px;
-  font-size: 17px;
+  font-size: 16px;
+}
+
+.quiz-banner .btn {
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 15px;
 }
 
 .quiz-banner strong {
@@ -1375,6 +1381,10 @@ address {
   .quiz-card {
     padding: 11px 18px;
     gap: 12px;
+  }
+
+  .quiz-banner {
+    padding: 14px 18px;
   }
 
   .quiz-card-eyebrow {
