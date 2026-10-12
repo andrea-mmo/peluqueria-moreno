@@ -1227,13 +1227,6 @@ a.quiz-link {
   display: none;
 }
 
-.share-site {
-  margin-top: 8px;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--sand);
-}
-
 .quiz-advice {
   display: flex;
   flex-direction: column;
