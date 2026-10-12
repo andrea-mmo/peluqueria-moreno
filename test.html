@@ -59,7 +59,7 @@
 
     <section id="quiz-result" class="quiz-panel" hidden>
       <div class="share-card">
-        <div class="share-eyebrow">Mi pelo es</div>
+        <div class="share-eyebrow">Mi resultado</div>
         <h2 id="result-title" class="share-name" tabindex="-1"></h2>
         <p class="share-tagline" id="result-tagline"></p>
         <div class="share-home" id="result-home-block">
@@ -79,8 +79,13 @@
       <a id="quiz-friend" class="quiz-link" href="https://wa.me/" target="_blank" rel="noopener">¿Conoces a alguien a quien le vendría bien? Pásaselo a una amiga <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
       <div class="quiz-advice">
         <div class="quiz-advice-block">
-          <h3 id="result-subtitle"></h3>
+          <div class="label">Por qué</div>
           <p id="result-text"></p>
+        </div>
+        <div class="quiz-advice-block" id="result-extra-block" hidden>
+          <div class="label">Y además</div>
+          <p id="result-extra"></p>
+          <ul class="quiz-products" id="result-extra-products"></ul>
         </div>
         <div class="quiz-advice-block">
           <div class="label">En el salón</div>
@@ -133,6 +138,7 @@ var questions = [
     options: [
       { label: 'Que esté más fuerte', points: { reparacion: 2 } },
       { label: 'Que brille más', points: { brillo: 3 } },
+      { label: 'Que esté más suave', points: { reparacion: 2, brillo: 1 } },
       { label: 'Que el color me dure', points: { color: 2 } },
       { label: 'Quitarle el tono amarillento', points: { rubio: 3 } },
       { label: 'Un cambio de imagen', points: { sano: 1 } }
@@ -140,12 +146,14 @@ var questions = [
   }
 ];
 
-// card: el nombre que sale en la tarjeta para compartir, en dos líneas (la segunda en color)
+// card: la frase que sale en la tarjeta para compartir, en dos líneas (la segunda en color)
+// extra: la frase que sale en «Y además» cuando este resultado queda segundo
 var results = {
   rubio: {
     name: 'Rubio sin amarillos',
-    card: ['Rubio', 'polar'],
-    tagline: 'Pide un matiz para decir adiós a los amarillos.',
+    extra: 'Tu rubio también agradece un cuidado antiamarillo, para que el tono se mantenga limpio.',
+    card: ['Mi rubio pide', 'un matiz'],
+    tagline: 'Para decir adiós a los amarillos y mantener el tono limpio.',
     title: 'Tu rubio pide un matiz',
     text: 'Los rubios y las mechas tienden a amarillear con los lavados, el sol y el agua. Con un cuidado antiamarillo en casa el tono se mantiene limpio mucho más tiempo.',
     products: [
@@ -156,8 +164,9 @@ var results = {
   },
   color: {
     name: 'Proteger el color',
-    card: ['Puro', 'color'],
-    tagline: 'Necesita protección para que el tono no se apague.',
+    extra: 'Tu color también necesita protección, para que no se apague con los lavados.',
+    card: ['Mi color pide', 'protección'],
+    tagline: 'Para que el tono no se apague con los lavados.',
     title: 'Tu color necesita protección',
     text: 'El pelo teñido pierde intensidad con cada lavado. Lo que mejor le va es un cuidado que selle el color y lo mantenga vivo entre una visita y la siguiente.',
     products: [
@@ -167,8 +176,9 @@ var results = {
   },
   reparacion: {
     name: 'Reparación',
-    card: ['Todo un', 'superviviente'],
-    tagline: 'Ha aguantado calor y tintes, y ahora pide reparación.',
+    extra: 'Tu pelo también pide reparación, para recuperar fuerza y suavidad.',
+    card: ['Mi pelo pide', 'reparación'],
+    tagline: 'Ha aguantado calor y tintes, y toca recuperar fuerza.',
     title: 'Tu pelo pide reparación',
     text: 'El calor y los tintes van dejando el pelo áspero y quebradizo. Necesita recuperar fuerza desde dentro, y un poco de constancia en casa.',
     products: [
@@ -179,7 +189,8 @@ var results = {
   },
   brillo: {
     name: 'Brillo e hidratación',
-    card: ['Un diamante', 'en bruto'],
+    extra: 'A tu pelo también le viene bien hidratación, para ganar brillo y suavidad.',
+    card: ['Mi pelo pide', 'brillo'],
     tagline: 'Con un poco de hidratación va a brillar.',
     title: 'A tu pelo le falta brillo',
     text: 'Cuando el pelo está seco, se ve apagado aunque esté sano. Con hidratación vuelve a tener luz y movimiento.',
@@ -190,8 +201,8 @@ var results = {
   },
   sano: {
     name: 'Pelo sano',
-    card: ['De', 'anuncio'],
-    tagline: 'Está sano y bien cuidado. A mantenerlo así.',
+    card: ['Mi pelo está', 'sano'],
+    tagline: 'Lo estoy cuidando bien. A mantenerlo así.',
     title: 'Tu pelo está sano: a mantenerlo',
     text: '¡Enhorabuena! Lo estás cuidando bien. Ahora toca conservarlo así y, si te apetece, darle un aire nuevo.',
     products: [],
@@ -274,7 +285,8 @@ function showQuestion(index) {
   title.focus();
 }
 
-function winner() {
+// Devuelve el resultado ganador y, si lo hay, un segundo que también ha sumado puntos
+function ranking() {
   var scores = {};
   answers.forEach(function (answer, i) {
     var points = questions[i].options[answer].points;
@@ -282,8 +294,25 @@ function winner() {
       scores[key] = (scores[key] || 0) + points[key];
     });
   });
-  return order.reduce(function (best, key) {
-    return (scores[key] || 0) > (scores[best] || 0) ? key : best;
+  var ranked = order.slice().sort(function (a, b) {
+    return (scores[b] || 0) - (scores[a] || 0);
+  });
+  var second = ranked.slice(1).filter(function (key) {
+    return key !== 'sano' && (scores[key] || 0) >= 2;
+  })[0];
+  return { first: results[ranked[0]], second: second ? results[second] : null };
+}
+
+function fillProducts(list, products) {
+  list.textContent = '';
+  products.forEach(function (product) {
+    var item = document.createElement('li');
+    var img = document.createElement('img');
+    img.src = 'Imagenes/Productos/' + product.img + '?v=3';
+    img.alt = '';
+    item.appendChild(img);
+    item.appendChild(document.createTextNode(product.name));
+    list.appendChild(item);
   });
 }
 
@@ -292,9 +321,10 @@ var testUrl = 'https://peluqueriamoreno.es/test.html';
 var friendText = '';
 
 function showResult() {
-  var result = shown = results[winner()];
+  var ranked = ranking();
+  var result = shown = ranked.first;
+  var extra = ranked.second;
   var title = document.getElementById('result-title');
-  var list = document.getElementById('result-products');
 
   title.textContent = '';
   result.card.forEach(function (line, i) {
@@ -304,27 +334,24 @@ function showResult() {
     title.appendChild(span);
   });
   document.getElementById('result-tagline').textContent = result.tagline;
-  document.getElementById('result-subtitle').textContent = result.title;
   document.getElementById('result-text').textContent = result.text;
   document.getElementById('result-salon').textContent = result.salon;
   document.getElementById('quiz-share-status').textContent = '';
 
-  list.textContent = '';
-  result.products.forEach(function (product) {
-    var item = document.createElement('li');
-    var img = document.createElement('img');
-    img.src = 'Imagenes/Productos/' + product.img + '?v=3';
-    img.alt = '';
-    item.appendChild(img);
-    item.appendChild(document.createTextNode(product.name));
-    list.appendChild(item);
-  });
+  fillProducts(document.getElementById('result-products'), result.products);
   document.getElementById('result-home-block').hidden = !result.products.length;
 
-  var message = 'Hola Milagros, he hecho el test de la web y me ha salido «' + result.title + '». ¿Qué me aconsejas?';
+  document.getElementById('result-extra-block').hidden = !extra;
+  if (extra) {
+    document.getElementById('result-extra').textContent = extra.extra;
+    fillProducts(document.getElementById('result-extra-products'), extra.products);
+  }
+
+  var message = 'Hola Milagros, he hecho el test de la web y me ha salido «' + result.title + '»' +
+    (extra ? ' y además «' + extra.title + '»' : '') + '. ¿Qué me aconsejas?';
   document.getElementById('result-whatsapp').href = 'https://wa.me/34653790166?text=' + encodeURIComponent(message);
 
-  friendText = 'He hecho el test de Peluquería Moreno y mi pelo es «' + result.card.join(' ') + '». ¿Y el tuyo?';
+  friendText = 'He hecho el test de Peluquería Moreno y me ha salido «' + result.card.join(' ') + '». ¿Y a ti?';
   document.getElementById('quiz-friend').href = 'https://wa.me/?text=' + encodeURIComponent(friendText + ' ' + testUrl);
 
   show('result', questions.length);
@@ -404,7 +431,7 @@ function drawCard(result, photos) {
       ctx.fillStyle = '#E8D7C8';
       ctx.font = '700 14px Nunito, sans-serif';
       if ('letterSpacing' in ctx) ctx.letterSpacing = '2px';
-      ctx.fillText('MI PELO ES', left, y);
+      ctx.fillText('MI RESULTADO', left, y);
       if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
     }
 
