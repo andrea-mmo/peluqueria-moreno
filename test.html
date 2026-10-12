@@ -509,6 +509,22 @@ function drawCard(result, photos) {
       ctx.font = '700 15px Nunito, sans-serif';
       ctx.fillText('peluqueriamoreno.es/test.html', left, y);
     }
+
+    y += 28;
+    if (draw) {
+      // Logo de Instagram a trazo y el usuario
+      ctx.strokeStyle = '#E8D7C8';
+      ctx.lineWidth = 1.6;
+      roundedRect(ctx, left + 1, y - 14, 16, 16, 4.5);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(left + 9, y - 6, 3.6, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(left + 13.2, y - 10.2, 1, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillText('@peluqueriamorenovlc', left + 24, y);
+    }
     return y;
   }
 
