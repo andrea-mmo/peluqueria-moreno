@@ -41,6 +41,10 @@
       <p class="lead">Cuatro preguntas sencillas y te digo qué cuidados le van mejor, en casa y en el salón.</p>
       <div class="actions">
         <button type="button" id="quiz-start" class="btn btn-primary">Empezar el test</button>
+        <a id="quiz-invite" class="btn btn-soft" href="https://wa.me/" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"></path></svg>
+          Enviárselo a alguien
+        </a>
       </div>
       <noscript><p class="note">Para hacer el test necesitas tener JavaScript activado. Si lo prefieres, <a href="https://wa.me/34653790166">escríbeme por WhatsApp</a> y lo vemos.</p></noscript>
     </section>
@@ -71,6 +75,7 @@
         <a id="result-whatsapp" class="btn btn-soft" href="https://wa.me/34653790166" data-umami-event="Test: WhatsApp">Cuéntamelo por WhatsApp</a>
       </div>
       <p class="note" id="quiz-share-status" role="status"></p>
+      <a id="quiz-friend" class="quiz-link" href="https://wa.me/" target="_blank" rel="noopener">¿Conoces a alguien a quien le vendría bien? Pásaselo a una amiga →</a>
       <div class="quiz-advice">
         <div class="quiz-advice-block">
           <h3 id="result-subtitle"></h3>
@@ -282,6 +287,8 @@ function winner() {
 }
 
 var shown = null;
+var testUrl = 'https://peluqueriamoreno.es/test.html';
+var friendText = '';
 
 function showResult() {
   var result = shown = results[winner()];
@@ -315,6 +322,9 @@ function showResult() {
 
   var message = 'Hola Milagros, he hecho el test de la web y me ha salido «' + result.title + '». ¿Qué me aconsejas?';
   document.getElementById('result-whatsapp').href = 'https://wa.me/34653790166?text=' + encodeURIComponent(message);
+
+  friendText = 'He hecho el test de Peluquería Moreno y mi pelo es «' + result.card.join(' ') + '». ¿Y el tuyo?';
+  document.getElementById('quiz-friend').href = 'https://wa.me/?text=' + encodeURIComponent(friendText + ' ' + testUrl);
 
   show('result', questions.length);
   title.focus();
@@ -443,6 +453,26 @@ document.getElementById('quiz-back').addEventListener('click', function () {
 });
 
 document.getElementById('quiz-share').addEventListener('click', shareResult);
+
+// Enlaces para pasar el test a otra persona. En el móvil abren el menú de compartir;
+// si no lo hay, llevan a WhatsApp con el mensaje ya escrito.
+// El evento de Umami se manda a mano: con data-umami-event, Umami abriría además el enlace.
+function shareLink(link, eventName, text) {
+  link.href = 'https://wa.me/?text=' + encodeURIComponent(text() + ' ' + testUrl);
+  link.addEventListener('click', function (event) {
+    track(eventName);
+    if (!navigator.share) return;
+    event.preventDefault();
+    navigator.share({ text: text(), url: testUrl }).catch(function () {});
+  });
+}
+
+shareLink(document.getElementById('quiz-invite'), 'Test: enviar enlace', function () {
+  return '¿Qué necesita tu pelo? Haz el test de Peluquería Moreno, es un minuto:';
+});
+shareLink(document.getElementById('quiz-friend'), 'Test: pasar a una amiga', function () {
+  return friendText;
+});
 
 document.getElementById('quiz-restart').addEventListener('click', function () {
   answers = [];

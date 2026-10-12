@@ -1149,6 +1149,16 @@ address {
   color: var(--ink-muted);
 }
 
+/* El aviso de «imagen descargada» no ocupa sitio mientras está vacío */
+.quiz-panel .note:empty {
+  display: none;
+}
+
+a.quiz-link {
+  line-height: 1.4;
+  text-decoration: none;
+}
+
 .quiz-link:hover {
   color: var(--accent);
 }
