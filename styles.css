@@ -795,6 +795,16 @@ address {
   color: var(--white);
 }
 
+.contact-social {
+  display: inline-flex;
+  margin-top: 6px;
+  color: var(--sand);
+}
+
+.contact-social:hover {
+  color: var(--white);
+}
+
 .hours {
   list-style: none;
   margin: 6px 0 0;
