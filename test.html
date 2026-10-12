@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test: ¿qué necesita tu pelo? | Peluquería Moreno</title>
+<meta name="description" content="Responde cuatro preguntas y descubre qué cuidados le van mejor a tu pelo. Un test rápido de Peluquería Moreno, en Valencia.">
+<link rel="canonical" href="https://peluqueriamoreno.es/test.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://peluqueriamoreno.es/test.html">
+<meta property="og:title" content="Test: ¿qué necesita tu pelo?">
+<meta property="og:description" content="Responde cuatro preguntas y descubre qué cuidados le van mejor a tu pelo.">
+<meta property="og:image" content="https://peluqueriamoreno.es/Imagenes/tarjeta-compartir.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="19267a1a-e770-42d9-90c6-fa1beb4d1565"></script>
+</head>
+<body class="quiz-body">
+
+<header class="container quiz-top">
+  <div class="quiz-segments" id="quiz-segments" aria-hidden="true"></div>
+  <div class="quiz-top-row">
+    <a class="logo" href="index.html">Peluquería Moreno</a>
+    <a class="quiz-close" href="index.html" aria-label="Cerrar el test y volver al inicio">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </a>
+  </div>
+</header>
+
+<main class="container quiz-page">
+  <div class="quiz">
+
+    <section id="quiz-intro" class="quiz-panel">
+      <div class="eyebrow">Test rápido · 1 minuto</div>
+      <h1>¿Qué necesita <span class="accent">tu pelo</span>?</h1>
+      <p class="lead">Cuatro preguntas sencillas y te digo qué cuidados le van mejor, en casa y en el salón.</p>
+      <div class="actions">
+        <button type="button" id="quiz-start" class="btn btn-primary">Empezar el test</button>
+      </div>
+      <noscript><p class="note">Para hacer el test necesitas tener JavaScript activado. Si lo prefieres, <a href="https://wa.me/34653790166">escríbeme por WhatsApp</a> y lo vemos.</p></noscript>
+    </section>
+
+    <section id="quiz-question" class="quiz-panel" hidden>
+      <div class="quiz-count" id="quiz-count"></div>
+      <h2 id="quiz-title" tabindex="-1"></h2>
+      <div class="quiz-options" id="quiz-options"></div>
+      <button type="button" id="quiz-back" class="quiz-link">← Volver atrás</button>
+    </section>
+
+    <section id="quiz-result" class="quiz-panel" hidden>
+      <div class="share-card">
+        <div class="share-eyebrow">Mi pelo es</div>
+        <h2 id="result-title" class="share-name" tabindex="-1"></h2>
+        <p class="share-tagline" id="result-tagline"></p>
+        <div class="share-home" id="result-home-block">
+          <div class="label">Para casa</div>
+          <ul class="quiz-products" id="result-products"></ul>
+        </div>
+        <div class="share-site">peluqueriamoreno.es</div>
+      </div>
+      <div class="actions">
+        <button type="button" id="quiz-share" class="btn btn-primary">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"></path></svg>
+          Compartir resultado
+        </button>
+        <a id="result-whatsapp" class="btn btn-soft" href="https://wa.me/34653790166" data-umami-event="Test: WhatsApp">Cuéntamelo por WhatsApp</a>
+      </div>
+      <p class="note" id="quiz-share-status" role="status"></p>
+      <div class="quiz-advice">
+        <div class="quiz-advice-block">
+          <h3 id="result-subtitle"></h3>
+          <p id="result-text"></p>
+        </div>
+        <div class="quiz-advice-block">
+          <div class="label">En el salón</div>
+          <p id="result-salon"></p>
+        </div>
+      </div>
+      <p class="note">Es una orientación. Cada pelo es distinto, así que lo mejor es que lo veamos juntas en el salón.</p>
+      <button type="button" id="quiz-restart" class="quiz-link">↻ Repetir el test</button>
+    </section>
+
+  </div>
+</main>
+
+<footer class="container quiz-foot">
+  © 2026 Peluquería Moreno · <a href="index.html">Inicio</a> · <a href="legal.html#privacidad">Privacidad</a>
+</footer>
+
+<script>
+// Cada respuesta suma puntos a uno o varios resultados; gana el que más tenga.
+// El título va en tres trozos: el del medio se pinta en color.
+var questions = [
+  {
+    title: ['¿Cómo llevas el pelo ', 'ahora mismo', '?'],
+    options: [
+      { label: 'Natural, sin tinte', points: { sano: 1 } },
+      { label: 'Teñido o con baño de color', points: { color: 3 } },
+      { label: 'Rubio o con mechas', points: { rubio: 3 } },
+      { label: 'Con canas que quiero cubrir', points: { color: 2 } }
+    ]
+  },
+  {
+    title: ['¿Cómo lo notas al ', 'tocarlo', '?'],
+    options: [
+      { label: 'Áspero, y se me rompe con facilidad', points: { reparacion: 3 } },
+      { label: 'Seco y apagado', points: { brillo: 2, reparacion: 1 } },
+      { label: 'Suave, pero el color se me va enseguida', points: { color: 2 } },
+      { label: 'Bien, la verdad', points: { sano: 2 } }
+    ]
+  },
+  {
+    title: ['¿Usas secador, plancha o ', 'tenacillas', '?'],
+    options: [
+      { label: 'Casi todos los días', points: { reparacion: 2 } },
+      { label: 'Un par de veces por semana', points: { reparacion: 1 } },
+      { label: 'Casi nunca', points: { sano: 1 } }
+    ]
+  },
+  {
+    title: ['¿Qué te gustaría ', 'conseguir', '?'],
+    options: [
+      { label: 'Que esté más fuerte', points: { reparacion: 2 } },
+      { label: 'Que brille más', points: { brillo: 3 } },
+      { label: 'Que el color me dure', points: { color: 2 } },
+      { label: 'Quitarle el tono amarillento', points: { rubio: 3 } },
+      { label: 'Un cambio de imagen', points: { sano: 1 } }
+    ]
+  }
+];
+
+// card: el nombre que sale en la tarjeta para compartir, en dos líneas (la segunda en color)
+var results = {
+  rubio: {
+    name: 'Rubio sin amarillos',
+    card: ['Rubio', 'polar'],
+    tagline: 'Pide un matiz para decir adiós a los amarillos.',
+    title: 'Tu rubio pide un matiz',
+    text: 'Los rubios y las mechas tienden a amarillear con los lavados, el sol y el agua. Con un cuidado antiamarillo en casa el tono se mantiene limpio mucho más tiempo.',
+    products: [
+      { name: 'Champú No-Yellow', img: 'champu-no-yellow.png' },
+      { name: 'Mascarilla No-Yellow', img: 'mascarilla-no-yellow.png' }
+    ],
+    salon: 'Repasamos las mechas y matizamos el tono cuando haga falta, cuidando que el pelo no se estropee.'
+  },
+  color: {
+    name: 'Proteger el color',
+    card: ['Puro', 'color'],
+    tagline: 'Necesita protección para que el tono no se apague.',
+    title: 'Tu color necesita protección',
+    text: 'El pelo teñido pierde intensidad con cada lavado. Lo que mejor le va es un cuidado que selle el color y lo mantenga vivo entre una visita y la siguiente.',
+    products: [
+      { name: 'Mascarilla Color Perfect', img: 'mascarilla-color-perfect.png' }
+    ],
+    salon: 'Buscamos juntas el tono que más te favorece y cubrimos las canas, con tinte o con baño de color sin amoniaco.'
+  },
+  reparacion: {
+    name: 'Reparación',
+    card: ['Todo un', 'superviviente'],
+    tagline: 'Ha aguantado calor y tintes, y ahora pide reparación.',
+    title: 'Tu pelo pide reparación',
+    text: 'El calor y los tintes van dejando el pelo áspero y quebradizo. Necesita recuperar fuerza desde dentro, y un poco de constancia en casa.',
+    products: [
+      { name: 'Champú Keratin', img: 'champu-keratin.png' },
+      { name: 'Mascarilla Keratin', img: 'mascarilla-keratin.png' }
+    ],
+    salon: 'Un tratamiento de reparación y sanear las puntas con un buen corte: se nota desde el primer día.'
+  },
+  brillo: {
+    name: 'Brillo e hidratación',
+    card: ['Un diamante', 'en bruto'],
+    tagline: 'Con un poco de hidratación va a brillar.',
+    title: 'A tu pelo le falta brillo',
+    text: 'Cuando el pelo está seco, se ve apagado aunque esté sano. Con hidratación vuelve a tener luz y movimiento.',
+    products: [
+      { name: 'Mascarilla Shecare Repair', img: 'mascarilla-shecare-repair.png' }
+    ],
+    salon: 'Un tratamiento de hidratación para devolverle el brillo, y te cuento cómo mantenerlo en casa.'
+  },
+  sano: {
+    name: 'Pelo sano',
+    card: ['De', 'anuncio'],
+    tagline: 'Está sano y bien cuidado. A mantenerlo así.',
+    title: 'Tu pelo está sano: a mantenerlo',
+    text: '¡Enhorabuena! Lo estás cuidando bien. Ahora toca conservarlo así y, si te apetece, darle un aire nuevo.',
+    products: [],
+    salon: 'Un corte cada dos o tres meses para mantener la forma. Y si quieres un cambio de imagen, cuéntame qué te ronda y lo vemos juntas.'
+  }
+};
+
+// Orden de desempate: el primero de la lista gana si hay empate a puntos
+var order = ['rubio', 'color', 'reparacion', 'brillo', 'sano'];
+
+var panels = {
+  intro: document.getElementById('quiz-intro'),
+  question: document.getElementById('quiz-question'),
+  result: document.getElementById('quiz-result')
+};
+var segments = document.getElementById('quiz-segments');
+var answers = [];
+var current = 0;
+
+questions.forEach(function () {
+  segments.appendChild(document.createElement('span'));
+});
+
+function track(name) {
+  if (window.umami) window.umami.track(name);
+}
+
+// filled: cuántas barritas de arriba se pintan
+function show(name, filled) {
+  Object.keys(panels).forEach(function (key) {
+    panels[key].hidden = key !== name;
+  });
+  Array.prototype.forEach.call(segments.children, function (segment, i) {
+    segment.classList.toggle('done', i < filled);
+  });
+  // Reinicia la animación de entrada aunque el panel ya estuviera visible
+  panels[name].classList.remove('quiz-in');
+  void panels[name].offsetWidth;
+  panels[name].classList.add('quiz-in');
+}
+
+function showQuestion(index) {
+  current = index;
+  var question = questions[index];
+  var title = document.getElementById('quiz-title');
+  var options = document.getElementById('quiz-options');
+
+  document.getElementById('quiz-count').textContent = 'Pregunta ' + (index + 1) + ' de ' + questions.length;
+
+  title.textContent = '';
+  question.title.forEach(function (part, i) {
+    var span = document.createElement('span');
+    if (i === 1) span.className = 'accent';
+    span.textContent = part;
+    title.appendChild(span);
+  });
+
+  options.textContent = '';
+  question.options.forEach(function (option, i) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'quiz-option';
+    if (answers[index] === i) btn.classList.add('selected');
+    btn.textContent = option.label;
+    btn.addEventListener('click', function () {
+      answers[index] = i;
+      Array.prototype.forEach.call(options.children, function (other) {
+        other.classList.toggle('selected', other === btn);
+        other.disabled = true;
+      });
+      // Deja ver un momento la respuesta marcada antes de pasar a la siguiente
+      setTimeout(function () {
+        if (index + 1 < questions.length) showQuestion(index + 1); else showResult();
+      }, 350);
+    });
+    options.appendChild(btn);
+  });
+
+  show('question', index + 1);
+  title.focus();
+}
+
+function winner() {
+  var scores = {};
+  answers.forEach(function (answer, i) {
+    var points = questions[i].options[answer].points;
+    Object.keys(points).forEach(function (key) {
+      scores[key] = (scores[key] || 0) + points[key];
+    });
+  });
+  return order.reduce(function (best, key) {
+    return (scores[key] || 0) > (scores[best] || 0) ? key : best;
+  });
+}
+
+var shown = null;
+
+function showResult() {
+  var result = shown = results[winner()];
+  var title = document.getElementById('result-title');
+  var list = document.getElementById('result-products');
+
+  title.textContent = '';
+  result.card.forEach(function (line, i) {
+    var span = document.createElement('span');
+    if (i === 1) span.className = 'accent';
+    span.textContent = line;
+    title.appendChild(span);
+  });
+  document.getElementById('result-tagline').textContent = result.tagline;
+  document.getElementById('result-subtitle').textContent = result.title;
+  document.getElementById('result-text').textContent = result.text;
+  document.getElementById('result-salon').textContent = result.salon;
+  document.getElementById('quiz-share-status').textContent = '';
+
+  list.textContent = '';
+  result.products.forEach(function (product) {
+    var item = document.createElement('li');
+    var img = document.createElement('img');
+    img.src = 'Imagenes/Productos/' + product.img + '?v=3';
+    img.alt = '';
+    item.appendChild(img);
+    item.appendChild(document.createTextNode(product.name));
+    list.appendChild(item);
+  });
+  document.getElementById('result-home-block').hidden = !result.products.length;
+
+  var message = 'Hola Milagros, he hecho el test de la web y me ha salido «' + result.title + '». ¿Qué me aconsejas?';
+  document.getElementById('result-whatsapp').href = 'https://wa.me/34653790166?text=' + encodeURIComponent(message);
+
+  show('result', questions.length);
+  title.focus();
+  track('Test resultado: ' + result.name);
+}
+
+// Parte un texto en líneas que quepan en el ancho dado
+function wrap(ctx, text, width) {
+  var lines = [];
+  var line = '';
+  text.split(' ').forEach(function (word) {
+    var next = line ? line + ' ' + word : word;
+    if (line && ctx.measureText(next).width > width) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = next;
+    }
+  });
+  lines.push(line);
+  return lines;
+}
+
+// Dibuja la tarjeta del resultado como imagen vertical (1080 × 1920), del tamaño de unas stories
+function drawCard(result) {
+  var canvas = document.createElement('canvas');
+  canvas.width = 1080;
+  canvas.height = 1920;
+  var ctx = canvas.getContext('2d');
+  var left = 96;
+  var width = canvas.width - left * 2;
+
+  ctx.fillStyle = '#3B2A24';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.textBaseline = 'alphabetic';
+
+  ctx.fillStyle = '#E8D7C8';
+  ctx.font = '700 44px Nunito, sans-serif';
+  ctx.fillText('MI PELO ES', left, 520);
+
+  // El nombre se encoge si alguna de las dos líneas no cabe
+  var size = 190;
+  do {
+    ctx.font = '600 ' + size + 'px Fraunces, serif';
+    size -= 6;
+  } while (Math.max(ctx.measureText(result.card[0]).width, ctx.measureText(result.card[1]).width) > width);
+  size += 6;
+  var y = 520 + 60 + size;
+  ctx.fillStyle = '#FBF3EA';
+  ctx.fillText(result.card[0], left, y);
+  y += size;
+  ctx.fillStyle = '#E79A80';
+  ctx.fillText(result.card[1], left, y);
+
+  ctx.fillStyle = '#E8D7C8';
+  ctx.font = '600 54px Nunito, sans-serif';
+  y += 60;
+  wrap(ctx, result.tagline, width).forEach(function (line) {
+    y += 78;
+    ctx.fillText(line, left, y);
+  });
+
+  if (result.products.length) {
+    var names = result.products.map(function (product) { return product.name; });
+    ctx.font = '700 46px Nunito, sans-serif';
+    var lines = wrap(ctx, names.join(' y '), width - 96);
+    var boxHeight = 150 + lines.length * 62;
+    y += 80;
+    ctx.fillStyle = '#F3D9C4';
+    ctx.beginPath();
+    ctx.roundRect(left, y, width, boxHeight, 40);
+    ctx.fill();
+    ctx.fillStyle = '#8C3E2A';
+    ctx.font = '700 38px Nunito, sans-serif';
+    ctx.fillText('PARA CASA', left + 48, y + 82);
+    ctx.fillStyle = '#3B2A24';
+    ctx.font = '700 46px Nunito, sans-serif';
+    lines.forEach(function (line, i) {
+      ctx.fillText(line, left + 48, y + 150 + i * 62);
+    });
+  }
+
+  ctx.fillStyle = '#FBF3EA';
+  ctx.font = '600 64px Fraunces, serif';
+  ctx.fillText('Peluquería Moreno', left, 1640);
+  ctx.fillStyle = '#E8D7C8';
+  ctx.font = '600 42px Nunito, sans-serif';
+  ctx.fillText('Haz el test en peluqueriamoreno.es/test.html', left, 1716);
+
+  return canvas;
+}
+
+function shareResult() {
+  var status = document.getElementById('quiz-share-status');
+  track('Test: compartir');
+  // Espera a que estén cargadas las letras para que la imagen salga igual que la web
+  Promise.all([
+    document.fonts.load('600 100px Fraunces'),
+    document.fonts.load('700 44px Nunito'),
+    document.fonts.load('600 44px Nunito')
+  ]).catch(function () {}).then(function () {
+    drawCard(shown).toBlob(function (blob) {
+      var file = new File([blob], 'mi-pelo-peluqueria-moreno.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        // Si se cierra el menú de compartir sin elegir nada, no pasa nada
+        navigator.share({ files: [file] }).catch(function () {});
+        return;
+      }
+      // Sin menú de compartir (ordenador): se descarga la imagen
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = file.name;
+      link.click();
+      status.textContent = 'Imagen descargada. Súbela a tus stories y etiqueta a la peluquería.';
+    }, 'image/png');
+  });
+}
+
+document.getElementById('quiz-start').addEventListener('click', function () {
+  track('Test: empezar');
+  showQuestion(0);
+});
+
+document.getElementById('quiz-back').addEventListener('click', function () {
+  if (current === 0) show('intro', 0); else showQuestion(current - 1);
+});
+
+document.getElementById('quiz-share').addEventListener('click', shareResult);
+
+document.getElementById('quiz-restart').addEventListener('click', function () {
+  answers = [];
+  track('Test: repetir');
+  showQuestion(0);
+});
+</script>
+
+</body>
+</html>
