@@ -1094,6 +1094,16 @@ address {
   cursor: pointer;
 }
 
+/* Un punto más compactos para que los dos botones quepan en una fila */
+.quiz-page .actions {
+  gap: 10px;
+}
+
+.quiz-page .actions .btn {
+  padding: 13px 22px;
+  font-size: 16px;
+}
+
 .quiz-count {
   margin-bottom: -12px;
   font-size: 15px;
