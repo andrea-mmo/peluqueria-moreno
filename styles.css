@@ -223,6 +223,12 @@ a:hover {
   gap: 56px;
 }
 
+/* En la portada los botones van un punto más pequeños para que no pesen tanto junto a la tarjeta del test */
+.hero .btn {
+  padding: 13px 26px;
+  font-size: 17px;
+}
+
 .hero-text {
   /* Ancho mínimo para que los dos botones quepan en una fila */
   flex: 1 1 584px;
@@ -845,6 +851,79 @@ address {
   padding-left: 22px;
 }
 
+/* Llamadas al test desde la portada y desde los productos */
+.quiz-card {
+  align-self: flex-start;
+  width: 100%;
+  max-width: 420px;
+  padding: 18px 24px;
+  border-radius: 20px;
+  background: var(--ink);
+  color: var(--cream);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: background 0.2s;
+}
+
+.quiz-card:hover {
+  background: #4D3A32;
+  color: var(--cream);
+}
+
+.quiz-card svg {
+  flex: none;
+  transition: transform 0.2s;
+}
+
+.quiz-card:hover svg {
+  transform: translateX(4px);
+}
+
+.quiz-card-eyebrow,
+.quiz-card-title {
+  display: block;
+}
+
+.quiz-card-eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+
+.quiz-card-title {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.quiz-banner {
+  margin-bottom: 32px;
+  padding: 20px 28px;
+  border-radius: 24px;
+  background: var(--ink);
+  color: var(--sand);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 32px;
+}
+
+.quiz-banner p {
+  flex: 1 1 320px;
+  font-size: 17px;
+}
+
+.quiz-banner strong {
+  color: var(--cream);
+}
+
 /* Página del test: a pantalla completa, una pregunta cada vez, como unas stories */
 .quiz-body {
   min-height: 100vh;
@@ -1277,6 +1356,27 @@ address {
 
   .btn {
     padding: 14px 24px;
+  }
+
+  .hero .btn {
+    padding: 11px 22px;
+    font-size: 16px;
+  }
+
+  .hero .actions {
+    gap: 10px;
+  }
+
+  .quiz-card {
+    padding: 14px 20px;
+  }
+
+  .quiz-card-eyebrow {
+    font-size: 12px;
+  }
+
+  .quiz-card-title {
+    font-size: 20px;
   }
 
   .review {
