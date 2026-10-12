@@ -862,8 +862,7 @@ address {
   text-decoration: none;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 28px;
+  gap: 14px;
   transition: background 0.2s;
 }
 
@@ -876,10 +875,15 @@ address {
   flex: none;
   width: 22px;
   height: 22px;
+}
+
+/* La flecha del final se separa del texto y se mueve al pasar el ratón */
+.quiz-card svg:last-child {
+  margin-left: 10px;
   transition: transform 0.2s;
 }
 
-.quiz-card:hover svg {
+.quiz-card:hover svg:last-child {
   transform: translateX(4px);
 }
 
@@ -1370,7 +1374,7 @@ address {
 
   .quiz-card {
     padding: 11px 18px;
-    gap: 20px;
+    gap: 12px;
   }
 
   .quiz-card-eyebrow {
