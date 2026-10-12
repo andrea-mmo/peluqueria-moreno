@@ -503,15 +503,28 @@ function drawCard(result, photos) {
       y -= 12;
     }
 
-    y += 44;
+    // Firma: línea de separación, nombre del salón y usuario de Instagram
+    y += 36;
     if (draw) {
-      ctx.fillStyle = '#E8D7C8';
-      ctx.font = '700 15px Nunito, sans-serif';
-      ctx.fillText('peluqueriamoreno.es/test.html', left, y);
+      ctx.strokeStyle = 'rgba(232, 215, 200, 0.3)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(left, y);
+      ctx.lineTo(left + width, y);
+      ctx.stroke();
+    }
+
+    y += 36;
+    if (draw) {
+      ctx.fillStyle = '#FBF3EA';
+      ctx.font = '600 22px Fraunces, serif';
+      ctx.fillText('Peluquería Moreno', left, y);
     }
 
     y += 28;
     if (draw) {
+      ctx.fillStyle = '#E8D7C8';
+      ctx.font = '700 15px Nunito, sans-serif';
       // Logo de Instagram a trazo y el usuario
       ctx.strokeStyle = '#E8D7C8';
       ctx.lineWidth = 1.6;
