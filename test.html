@@ -503,25 +503,7 @@ function drawCard(result, photos) {
       y -= 12;
     }
 
-    // Firma: línea de separación, nombre del salón y usuario de Instagram
-    y += 36;
-    if (draw) {
-      ctx.strokeStyle = 'rgba(232, 215, 200, 0.3)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(left, y);
-      ctx.lineTo(left + width, y);
-      ctx.stroke();
-    }
-
-    y += 36;
-    if (draw) {
-      ctx.fillStyle = '#FBF3EA';
-      ctx.font = '600 22px Fraunces, serif';
-      ctx.fillText('Peluquería Moreno', left, y);
-    }
-
-    y += 28;
+    y += 44;
     if (draw) {
       ctx.fillStyle = '#E8D7C8';
       ctx.font = '700 15px Nunito, sans-serif';
