@@ -348,85 +348,140 @@ function wrap(ctx, text, width) {
   return lines;
 }
 
-// Dibuja la tarjeta del resultado como imagen vertical (1080 × 1920), del tamaño de unas stories
-function drawCard(result) {
+// Rectángulo de esquinas redondeadas (roundRect no existe en iPhone antiguos)
+function roundedRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function loadImage(src) {
+  return new Promise(function (resolve) {
+    var img = new Image();
+    img.onload = function () { resolve(img); };
+    img.onerror = function () { resolve(null); };
+    img.src = src;
+  });
+}
+
+// Dibuja la tarjeta del resultado como imagen vertical (1080 × 1920), del tamaño de unas stories.
+// Se dibuja con las mismas medidas que la tarjeta de la web en un móvil y se amplía ×3,
+// para que las letras salgan con el mismo trazo que en pantalla.
+function drawCard(result, photos) {
   var canvas = document.createElement('canvas');
   canvas.width = 1080;
   canvas.height = 1920;
   var ctx = canvas.getContext('2d');
-  var left = 96;
-  var width = canvas.width - left * 2;
+  var left = 32;
+  var width = 296;
 
   ctx.fillStyle = '#3B2A24';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.scale(3, 3);
   ctx.textBaseline = 'alphabetic';
 
-  ctx.fillStyle = '#E8D7C8';
-  ctx.font = '700 44px Nunito, sans-serif';
-  ctx.fillText('MI PELO ES', left, 520);
-
   // El nombre se encoge si alguna de las dos líneas no cabe
-  var size = 190;
+  var size = 48;
   do {
+    size -= 1;
     ctx.font = '600 ' + size + 'px Fraunces, serif';
-    size -= 6;
   } while (Math.max(ctx.measureText(result.card[0]).width, ctx.measureText(result.card[1]).width) > width);
-  size += 6;
-  var y = 520 + 60 + size;
-  ctx.fillStyle = '#FBF3EA';
-  ctx.fillText(result.card[0], left, y);
-  y += size;
-  ctx.fillStyle = '#E79A80';
-  ctx.fillText(result.card[1], left, y);
 
-  ctx.fillStyle = '#E8D7C8';
-  ctx.font = '600 54px Nunito, sans-serif';
-  y += 60;
-  wrap(ctx, result.tagline, width).forEach(function (line) {
-    y += 78;
-    ctx.fillText(line, left, y);
-  });
+  ctx.font = '400 19px Nunito, sans-serif';
+  var tagline = wrap(ctx, result.tagline, width);
 
-  if (result.products.length) {
-    var names = result.products.map(function (product) { return product.name; });
-    ctx.font = '700 46px Nunito, sans-serif';
-    var lines = wrap(ctx, names.join(' y '), width - 96);
-    var boxHeight = 150 + lines.length * 62;
-    y += 80;
-    ctx.fillStyle = '#F3D9C4';
-    ctx.beginPath();
-    ctx.roundRect(left, y, width, boxHeight, 40);
-    ctx.fill();
-    ctx.fillStyle = '#8C3E2A';
-    ctx.font = '700 38px Nunito, sans-serif';
-    ctx.fillText('PARA CASA', left + 48, y + 82);
-    ctx.fillStyle = '#3B2A24';
-    ctx.font = '700 46px Nunito, sans-serif';
-    lines.forEach(function (line, i) {
-      ctx.fillText(line, left + 48, y + 150 + i * 62);
+  // Primera pasada sin pintar para saber la altura y centrar el contenido
+  function paint(top, draw) {
+    var y = top;
+
+    y += 14;
+    if (draw) {
+      ctx.fillStyle = '#E8D7C8';
+      ctx.font = '700 14px Nunito, sans-serif';
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '2px';
+      ctx.fillText('MI PELO ES', left, y);
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+    }
+
+    y += 14;
+    ctx.font = '600 ' + size + 'px Fraunces, serif';
+    result.card.forEach(function (line, i) {
+      y += size;
+      if (draw) {
+        ctx.fillStyle = i === 1 ? '#E79A80' : '#FBF3EA';
+        ctx.fillText(line, left, y);
+      }
     });
+
+    y += 12;
+    ctx.font = '400 19px Nunito, sans-serif';
+    tagline.forEach(function (line) {
+      y += 31;
+      if (draw) {
+        ctx.fillStyle = '#E8D7C8';
+        ctx.fillText(line, left, y);
+      }
+    });
+
+    if (result.products.length) {
+      y += 46;
+      if (draw) {
+        ctx.fillStyle = '#FBF3EA';
+        ctx.font = '700 18px Nunito, sans-serif';
+        ctx.fillText('Para casa', left, y);
+      }
+      y += 14;
+      result.products.forEach(function (product, i) {
+        ctx.font = '700 16px Nunito, sans-serif';
+        if (draw) {
+          ctx.fillStyle = '#F3D9C4';
+          roundedRect(ctx, left, y, 8 + 64 + 10 + ctx.measureText(product.name).width + 18, 80, 16);
+          ctx.fill();
+          var photo = photos[i];
+          if (photo) {
+            // Recorte cuadrado centrado, como en la web
+            var side = Math.min(photo.naturalWidth, photo.naturalHeight);
+            ctx.drawImage(photo, (photo.naturalWidth - side) / 2, (photo.naturalHeight - side) / 2, side, side, left + 8, y + 8, 64, 64);
+          }
+          ctx.fillStyle = '#3B2A24';
+          ctx.fillText(product.name, left + 82, y + 46);
+        }
+        y += 80 + 12;
+      });
+      y -= 12;
+    }
+
+    y += 44;
+    if (draw) {
+      ctx.fillStyle = '#E8D7C8';
+      ctx.font = '700 15px Nunito, sans-serif';
+      ctx.fillText('peluqueriamoreno.es/test.html', left, y);
+    }
+    return y;
   }
 
-  ctx.fillStyle = '#FBF3EA';
-  ctx.font = '600 64px Fraunces, serif';
-  ctx.fillText('Peluquería Moreno', left, 1640);
-  ctx.fillStyle = '#E8D7C8';
-  ctx.font = '600 42px Nunito, sans-serif';
-  ctx.fillText('Haz el test en peluqueriamoreno.es/test.html', left, 1716);
-
+  var height = paint(0, false);
+  paint((640 - height) / 2, true);
   return canvas;
 }
 
 function shareResult() {
   var status = document.getElementById('quiz-share-status');
+  var result = shown;
   track('Test: compartir');
-  // Espera a que estén cargadas las letras para que la imagen salga igual que la web
-  Promise.all([
-    document.fonts.load('600 100px Fraunces'),
-    document.fonts.load('700 44px Nunito'),
-    document.fonts.load('600 44px Nunito')
-  ]).catch(function () {}).then(function () {
-    drawCard(shown).toBlob(function (blob) {
+  // Espera a las letras y a las fotos para que la imagen salga igual que la web
+  var fonts = ['600 48px Fraunces', '400 19px Nunito', '700 16px Nunito'].map(function (font) {
+    return document.fonts.load(font).catch(function () {});
+  });
+  var photos = result.products.map(function (product) {
+    return loadImage('Imagenes/Productos/' + product.img + '?v=3');
+  });
+  Promise.all([Promise.all(photos), Promise.all(fonts)]).then(function (loaded) {
+    drawCard(result, loaded[0]).toBlob(function (blob) {
       var file = new File([blob], 'mi-pelo-peluqueria-moreno.png', { type: 'image/png' });
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         // Si se cierra el menú de compartir sin elegir nada, no pasa nada
