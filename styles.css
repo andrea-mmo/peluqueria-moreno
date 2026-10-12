@@ -854,17 +854,16 @@ address {
 /* Llamadas al test desde la portada y desde los productos */
 .quiz-card {
   align-self: flex-start;
-  width: 100%;
-  max-width: 420px;
-  padding: 18px 24px;
-  border-radius: 20px;
+  max-width: 100%;
+  padding: 12px 20px;
+  border-radius: 18px;
   background: var(--ink);
   color: var(--cream);
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 28px;
   transition: background 0.2s;
 }
 
@@ -875,6 +874,8 @@ address {
 
 .quiz-card svg {
   flex: none;
+  width: 22px;
+  height: 22px;
   transition: transform 0.2s;
 }
 
@@ -888,7 +889,7 @@ address {
 }
 
 .quiz-card-eyebrow {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -898,7 +899,7 @@ address {
 .quiz-card-title {
   font-family: "Fraunces", serif;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1.25;
 }
 
@@ -1368,15 +1369,16 @@ address {
   }
 
   .quiz-card {
-    padding: 14px 20px;
+    padding: 11px 18px;
+    gap: 20px;
   }
 
   .quiz-card-eyebrow {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .quiz-card-title {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .review {
