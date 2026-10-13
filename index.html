@@ -141,18 +141,6 @@
       <p><strong>Cada pelo pide una cosa.</strong> Cuéntame cómo es el tuyo y te digo cuál le va mejor.</p>
       <a class="btn btn-small btn-light" href="test" data-umami-event="Test productos">Hacer el test</a>
     </div>
-    <label class="product-filter-select">
-      <span>¿Qué necesita tu pelo?</span>
-      <select>
-        <option value="todos">Todos los productos</option>
-        <option value="danado">Pelo dañado</option>
-        <option value="tenido">Teñido</option>
-        <option value="rubias">Rubias y canas</option>
-        <option value="brillo">Sin brillo</option>
-        <option value="caida">Caída y pelo débil</option>
-        <option value="rizos">Rizos y encrespado</option>
-      </select>
-    </label>
     <div class="product-filters" role="group" aria-label="Filtrar productos por tipo de pelo">
       <button type="button" data-filter="todos" aria-pressed="true" data-umami-event="Filtro: Todos">Todos</button>
       <button type="button" data-filter="danado" aria-pressed="false" data-umami-event="Filtro: Pelo dañado">Pelo dañado</button>
@@ -562,17 +550,11 @@ carousel(document.querySelector('.product-track'), false);
   var track = document.querySelector('.product-track');
   var filters = document.querySelectorAll('.product-filters button');
   var more = document.querySelector('.products-more');
-  var select = document.querySelector('.product-filter-select select');
   if (!track || !filters.length) return;
-  // En móvil los filtros son un desplegable, que pulsa el botón que toca
-  select.addEventListener('change', function () {
-    document.querySelector('.product-filters [data-filter="' + select.value + '"]').click();
-  });
   filters.forEach(function (button) {
     button.addEventListener('click', function () {
       var group = button.dataset.filter;
       var all = group === 'todos';
-      select.value = group;
       filters.forEach(function (other) { other.setAttribute('aria-pressed', other === button); });
       Array.prototype.forEach.call(track.children, function (card) {
         card.hidden = !all && card.dataset.group !== group;
