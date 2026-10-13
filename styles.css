@@ -635,8 +635,8 @@ h2 {
   color: var(--white);
 }
 
-/* La flecha de los filtros solo se usa en móvil */
-.product-filters-next {
+/* El botón que recoge los filtros solo se usa en móvil */
+.product-filters-toggle {
   display: none;
 }
 
@@ -1736,69 +1736,53 @@ a.quiz-link {
     font-size: 12px;
   }
 
-  /* Los filtros van en una fila que se desliza; una flecha y un difuminado avisan de que hay más */
+  /* Los filtros se recogen en un botón; al pulsarlo se despliegan debajo */
   .product-filters-wrap {
-    position: relative;
     margin-bottom: 20px;
   }
 
-  .product-filters {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 6px;
-    margin-bottom: 0;
-    padding-right: 56px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .product-filters::-webkit-scrollbar {
-    display: none;
-  }
-
-  .product-filters button {
-    flex: none;
-    padding: 8px 13px;
-    font-size: 14px;
-    line-height: 1.3;
-  }
-
-  .product-filters-wrap::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 84px;
-    background: linear-gradient(to right, rgba(251, 243, 234, 0), var(--cream) 55%);
-    pointer-events: none;
-  }
-
-  .product-filters-next {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    z-index: 1;
-    width: 34px;
-    height: 34px;
-    transform: translateY(-50%);
+  .product-filters-toggle {
+    width: 100%;
+    padding: 12px 18px;
     border: 0;
     border-radius: 999px;
-    background: var(--ink);
-    color: var(--cream);
+    background: var(--peach);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     cursor: pointer;
   }
 
-  .product-filters-wrap.at-end::after {
-    display: none;
+  .product-filters-toggle b {
+    color: var(--accent-dark);
   }
 
-  /* Al final de la fila la flecha se da la vuelta y lleva al principio */
-  .product-filters-wrap.at-end .product-filters-next svg {
+  .product-filters-toggle svg {
+    transition: transform 0.2s;
+  }
+
+  .product-filters-wrap.open .product-filters-toggle svg {
     transform: rotate(180deg);
+  }
+
+  .product-filters {
+    display: none;
+    gap: 6px;
+    margin: 10px 0 0;
+  }
+
+  .product-filters-wrap.open .product-filters {
+    display: flex;
+  }
+
+  .product-filters button {
+    padding: 8px 13px;
+    font-size: 14px;
+    line-height: 1.3;
   }
 
   /* La tarjeta es estrecha: el enlace se queda en «Preguntar →» */
