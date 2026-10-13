@@ -158,7 +158,7 @@
       </div>
     </div>
     <p class="product-count is-all" role="status"><b>18 productos</b> en total</p>
-    <ul class="product-track" tabindex="0" aria-label="Productos">
+    <ul class="product-track" aria-label="Productos">
       <li class="product" data-group="danado">
         <span class="product-ribbon">Muy pedido</span>
         <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/champu-keratin.png?v=3" alt="Champú reestructurante Ice Cream Keratin de Inebrya" loading="lazy"></button>
@@ -288,14 +288,6 @@
         <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Fitoxil%20Forte" target="_blank" rel="noopener" data-umami-event="Producto: Fitoxil Forte">Preguntar<span class="ask-long"> por este</span> →</a>
       </li>
     </ul>
-    <div class="carousel-nav">
-      <button type="button" class="carousel-btn" data-dir="-1" aria-label="Productos anteriores">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
-      </button>
-      <button type="button" class="carousel-btn" data-dir="1" aria-label="Productos siguientes">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
-      </button>
-    </div>
     <div class="products-more">
       <button type="button" class="btn btn-small btn-soft" aria-expanded="false" data-umami-event="Ver todos los productos">Ver los 18 productos</button>
     </div>
@@ -537,7 +529,6 @@ window.addEventListener('load', function () {
   });
 });
 
-carousel(document.querySelector('.product-track'), false);
 
 // En escritorio solo se ven las dos primeras filas hasta que se pulsa «Ver los 18 productos»
 (function () {
@@ -612,9 +603,6 @@ carousel(document.querySelector('.product-track'), false);
       // El contador confirma cuántos productos han quedado a la vista
       count.classList.toggle('is-all', all);
       count.innerHTML = all ? '<b>' + total + ' productos</b> en total' : 'Viendo <b>' + shown.length + ' de ' + total + '</b> productos';
-      // Vuelve al principio del carrusel y actualiza sus flechas
-      track.scrollLeft = 0;
-      track.dispatchEvent(new Event('scroll'));
     });
   });
 })();
