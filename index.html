@@ -551,7 +551,7 @@ carousel(document.querySelector('.product-track'), false);
   });
 })();
 
-// Filtros por tipo de pelo: enseñan solo los productos de ese grupo
+// Filtros por tipo de pelo: enseñan solo los productos de los grupos marcados
 (function () {
   var track = document.querySelector('.product-track');
   var filters = document.querySelectorAll('.product-filters button');
@@ -567,15 +567,29 @@ carousel(document.querySelector('.product-track'), false);
   toggle.addEventListener('click', function () {
     setOpen(!wrap.classList.contains('open'));
   });
+  // Se pueden marcar varios filtros a la vez; «Todos» los quita
+  var active = [];
   filters.forEach(function (button) {
     button.addEventListener('click', function () {
       var group = button.dataset.filter;
-      var all = group === 'todos';
-      toggle.querySelector('b').textContent = button.textContent;
-      setOpen(false);
-      filters.forEach(function (other) { other.setAttribute('aria-pressed', other === button); });
+      if (group === 'todos') {
+        active = [];
+        setOpen(false);
+      } else if (active.indexOf(group) < 0) {
+        active.push(group);
+      } else {
+        active.splice(active.indexOf(group), 1);
+      }
+      var all = !active.length;
+      var names = [];
+      filters.forEach(function (other) {
+        var on = all ? other.dataset.filter === 'todos' : active.indexOf(other.dataset.filter) >= 0;
+        other.setAttribute('aria-pressed', on);
+        if (on) names.push(other.textContent);
+      });
+      toggle.querySelector('b').textContent = names.length > 1 ? names.length + ' marcados' : names[0];
       Array.prototype.forEach.call(track.children, function (card) {
-        card.hidden = !all && card.dataset.group !== group;
+        card.hidden = !all && active.indexOf(card.dataset.group) < 0;
       });
       track.classList.toggle('filtered', !all);
       // Con cuatro productos quedan mejor dos y dos que tres y uno suelto
