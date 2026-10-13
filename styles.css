@@ -585,6 +585,156 @@ h2 {
   text-decoration: underline;
 }
 
+/* La foto es un botón que abre el producto en grande */
+.product-zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.product-zoom .product-photo {
+  transition: transform 0.2s;
+}
+
+.product-zoom:hover .product-photo {
+  transform: scale(1.04);
+}
+
+.product-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.product-filters button {
+  padding: 9px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.product-filters button:hover {
+  background: var(--peach);
+}
+
+.product-filters button[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream);
+}
+
+.product-track .product[hidden] {
+  display: none;
+}
+
+.products-more {
+  display: none;
+}
+
+/* En escritorio la lista arranca con dos filas; el resto sale con el botón */
+@media (min-width: 721px) {
+  /* Con un filtro puesto se ven todos los de ese grupo */
+  .product-track:not(.expanded):not(.filtered) .product:nth-child(n+7) {
+    display: none;
+  }
+
+  .products-more:not([hidden]) {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+}
+
+.products-more .btn {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.product-track .product-name {
+  cursor: zoom-in;
+}
+
+.product-track .product-name:hover {
+  text-decoration: underline;
+}
+
+.product-dialog {
+  width: min(520px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  padding: 20px 28px 32px;
+  border: 0;
+  border-radius: 24px;
+  background: var(--peach);
+  color: var(--ink);
+  text-align: center;
+}
+
+.product-dialog::backdrop {
+  background: rgba(59, 42, 36, 0.6);
+}
+
+.product-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  animation: product-dialog-in 0.2s ease-out;
+}
+
+@keyframes product-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.product-dialog-photo {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.product-dialog h3 {
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.product-dialog .product-note {
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+.product-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.product-dialog-close:hover {
+  background: var(--cream);
+}
+
 @media (min-width: 721px) {
   .product:hover {
     transform: translateY(-6px);
@@ -1520,6 +1670,22 @@ a.quiz-link {
     margin-top: 2px;
     padding: 6px 10px;
     font-size: 12px;
+  }
+
+  /* Los filtros van en una fila que se desliza de lado */
+  .product-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-bottom: 20px;
+  }
+
+  .product-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-filters button {
+    flex: none;
   }
 
   /* La tarjeta es estrecha: el enlace se queda en «Preguntar →» */

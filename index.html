@@ -149,52 +149,158 @@
       <p><strong>Cada pelo pide una cosa.</strong> Cuéntame cómo es el tuyo y te digo cuál le va mejor.</p>
       <a class="btn btn-small btn-light" href="test" data-umami-event="Test productos">Hacer el test</a>
     </div>
+    <div class="product-filters" role="group" aria-label="Filtrar productos por tipo de pelo">
+      <button type="button" data-filter="todos" aria-pressed="true" data-umami-event="Filtro: Todos">Todos</button>
+      <button type="button" data-filter="danado" aria-pressed="false" data-umami-event="Filtro: Pelo dañado">Pelo dañado</button>
+      <button type="button" data-filter="tenido" aria-pressed="false" data-umami-event="Filtro: Teñido">Teñido</button>
+      <button type="button" data-filter="rubias" aria-pressed="false" data-umami-event="Filtro: Rubias y canas">Rubias y canas</button>
+      <button type="button" data-filter="brillo" aria-pressed="false" data-umami-event="Filtro: Sin brillo">Sin brillo</button>
+      <button type="button" data-filter="caida" aria-pressed="false" data-umami-event="Filtro: Caída y pelo débil">Caída y pelo débil</button>
+      <button type="button" data-filter="rizos" aria-pressed="false" data-umami-event="Filtro: Rizos y encrespado">Rizos y encrespado</button>
+    </div>
     <ul class="product-track" tabindex="0" aria-label="Productos">
-      <li class="product">
+      <li class="product" data-group="danado">
         <span class="product-ribbon">Muy pedido</span>
-        <img class="product-photo" src="Imagenes/Productos/champu-keratin.png?v=3" alt="Champú reestructurante Ice Cream Keratin de Inebrya" loading="lazy">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/champu-keratin.png?v=3" alt="Champú reestructurante Ice Cream Keratin de Inebrya" loading="lazy"></button>
         <span class="product-tag">Pelo dañado</span>
         <div class="product-name">Champú Keratin</div>
         <div class="product-note">Reestructurante</div>
         <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Champ%C3%BA%20Keratin" target="_blank" rel="noopener" data-umami-event="Producto: Champú Keratin">Preguntar<span class="ask-long"> por este</span> →</a>
       </li>
-      <li class="product">
+      <li class="product" data-group="danado">
         <span class="product-ribbon">Muy pedido</span>
-        <img class="product-photo" src="Imagenes/Productos/mascarilla-keratin.png?v=3" alt="Mascarilla reestructurante Ice Cream Keratin de Inebrya" loading="lazy">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/mascarilla-keratin.png?v=3" alt="Mascarilla reestructurante Ice Cream Keratin de Inebrya" loading="lazy"></button>
         <span class="product-tag">Pelo dañado</span>
         <div class="product-name">Mascarilla Keratin</div>
         <div class="product-note">Reestructurante</div>
         <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Mascarilla%20Keratin" target="_blank" rel="noopener" data-umami-event="Producto: Mascarilla Keratin">Preguntar<span class="ask-long"> por este</span> →</a>
       </li>
-      <li class="product">
-        <img class="product-photo" src="Imagenes/Productos/mascarilla-color-perfect.png?v=3" alt="Mascarilla Color Perfect de Inebrya" loading="lazy">
+      <li class="product" data-group="tenido">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/mascarilla-color-perfect.png?v=3" alt="Mascarilla Color Perfect de Inebrya" loading="lazy"></button>
         <span class="product-tag">Pelo teñido</span>
         <div class="product-name">Mascarilla Color Perfect</div>
         <div class="product-note">Protege el color</div>
         <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Mascarilla%20Color%20Perfect" target="_blank" rel="noopener" data-umami-event="Producto: Mascarilla Color Perfect">Preguntar<span class="ask-long"> por este</span> →</a>
       </li>
-      <li class="product">
-        <img class="product-photo" src="Imagenes/Productos/champu-no-yellow.png?v=3" alt="Champú No-Yellow Blondesse de Inebrya" loading="lazy">
+      <li class="product" data-group="rubias">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/champu-no-yellow.png?v=3" alt="Champú No-Yellow Blondesse de Inebrya" loading="lazy"></button>
         <span class="product-tag">Rubias y mechas</span>
         <div class="product-name">Champú No-Yellow</div>
         <div class="product-note">Antiamarillo</div>
         <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Champ%C3%BA%20No-Yellow" target="_blank" rel="noopener" data-umami-event="Producto: Champú No-Yellow">Preguntar<span class="ask-long"> por este</span> →</a>
       </li>
-      <li class="product">
-        <img class="product-photo" src="Imagenes/Productos/mascarilla-no-yellow.png?v=3" alt="Mascarilla No-Yellow Blondesse de Inebrya" loading="lazy">
+      <li class="product" data-group="rubias">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/mascarilla-no-yellow.png?v=3" alt="Mascarilla No-Yellow Blondesse de Inebrya" loading="lazy"></button>
         <span class="product-tag">Rubias y mechas</span>
         <div class="product-name">Mascarilla No-Yellow</div>
         <div class="product-note">Antiamarillo</div>
         <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Mascarilla%20No-Yellow" target="_blank" rel="noopener" data-umami-event="Producto: Mascarilla No-Yellow">Preguntar<span class="ask-long"> por este</span> →</a>
       </li>
-      <li class="product">
-        <img class="product-photo" src="Imagenes/Productos/mascarilla-shecare-repair.png?v=3" alt="Mascarilla Shecare Repair de Inebrya" loading="lazy">
+      <li class="product" data-group="brillo">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/mascarilla-shecare-repair.png?v=3" alt="Mascarilla Shecare Repair de Inebrya" loading="lazy"></button>
         <span class="product-tag">Pelo sin brillo</span>
         <div class="product-name">Mascarilla Shecare Repair</div>
         <div class="product-note">Reparadora e iluminadora</div>
         <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Mascarilla%20Shecare%20Repair" target="_blank" rel="noopener" data-umami-event="Producto: Mascarilla Shecare Repair">Preguntar<span class="ask-long"> por este</span> →</a>
       </li>
+      <li class="product" data-group="caida">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/locion-energy.png" alt="Loción energizante Ice Cream Energy de Inebrya" loading="lazy"></button>
+        <span class="product-tag">Pelo débil</span>
+        <div class="product-name">Loción Energy</div>
+        <div class="product-note">Energizante</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Loci%C3%B3n%20Energy" target="_blank" rel="noopener" data-umami-event="Producto: Loción Energy">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="tenido">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/aceite-color-perfect.png" alt="Aceite iluminador Color Perfect Shine Oil de Inebrya" loading="lazy"></button>
+        <span class="product-tag">Pelo teñido</span>
+        <div class="product-name">Aceite Color Perfect</div>
+        <div class="product-note">Aceite iluminador</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Aceite%20Color%20Perfect" target="_blank" rel="noopener" data-umami-event="Producto: Aceite Color Perfect">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="rizos">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/style-in-oil-no-oil.png" alt="Fluido de peinado Style-In Oil no Oil de Inebrya" loading="lazy"></button>
+        <span class="product-tag">Peinado</span>
+        <div class="product-name">Style-In Oil no Oil</div>
+        <div class="product-note">Fluido de peinado</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Style-In%20Oil%20no%20Oil" target="_blank" rel="noopener" data-umami-event="Producto: Style-In Oil no Oil">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="rubias">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/gotas-blonde-miracle.png" alt="Gotas iluminadoras Blondesse Blonde Miracle Drops de Inebrya" loading="lazy"></button>
+        <span class="product-tag">Rubias y mechas</span>
+        <div class="product-name">Gotas Blonde Miracle</div>
+        <div class="product-note">Sérum iluminador</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Gotas%20Blonde%20Miracle" target="_blank" rel="noopener" data-umami-event="Producto: Gotas Blonde Miracle">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="rubias">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/mascarilla-blonde-miracle.png" alt="Tratamiento Blondesse Blonde Miracle Nectar de Inebrya" loading="lazy"></button>
+        <span class="product-tag">Rubias y mechas</span>
+        <div class="product-name">Blonde Miracle Nectar</div>
+        <div class="product-note">Nutre e ilumina</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Blonde%20Miracle%20Nectar" target="_blank" rel="noopener" data-umami-event="Producto: Blonde Miracle Nectar">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="rubias">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/mascarilla-grey-by-day.png" alt="Mascarilla matizadora Grey by Day Butter de Inebrya" loading="lazy"></button>
+        <span class="product-tag">Canas</span>
+        <div class="product-name">Mascarilla Grey by Day</div>
+        <div class="product-note">Matiza las canas</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Mascarilla%20Grey%20by%20Day" target="_blank" rel="noopener" data-umami-event="Producto: Mascarilla Grey by Day">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="brillo">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/ampollas-shecare-repair.png" alt="Ampollas Shecare Repair Extra Shine Lotion de Inebrya" loading="lazy"></button>
+        <span class="product-tag">Pelo sin brillo</span>
+        <div class="product-name">Ampollas Shecare Repair</div>
+        <div class="product-note">Brillo instantáneo</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Ampollas%20Shecare%20Repair" target="_blank" rel="noopener" data-umami-event="Producto: Ampollas Shecare Repair">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="brillo">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/champu-tahe-k-glicolic.png" alt="Champú de brillo K-Glicolic de Tahe" loading="lazy"></button>
+        <span class="product-tag">Pelo sin brillo</span>
+        <div class="product-name">Champú K-Glicolic</div>
+        <div class="product-note">Champú de brillo</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Champ%C3%BA%20K-Glicolic" target="_blank" rel="noopener" data-umami-event="Producto: Champú K-Glicolic">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="rizos">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/champu-tahe-miracle-gold.png" alt="Champú antiencrespamiento Miracle Gold de Tahe" loading="lazy"></button>
+        <span class="product-tag">Pelo encrespado</span>
+        <div class="product-name">Champú Miracle Gold</div>
+        <div class="product-note">Antiencrespamiento</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Champ%C3%BA%20Miracle%20Gold" target="_blank" rel="noopener" data-umami-event="Producto: Champú Miracle Gold">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="rizos">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/champu-curl-boost.png" alt="Champú Up to You Curl Boost de Inebrya" loading="lazy"></button>
+        <span class="product-tag">Rizos</span>
+        <div class="product-name">Champú Curl Boost</div>
+        <div class="product-note">Define el rizo</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Champ%C3%BA%20Curl%20Boost" target="_blank" rel="noopener" data-umami-event="Producto: Champú Curl Boost">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="rizos">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/mascarilla-curl-boost.png" alt="Mascarilla Up to You Curl Boost de Inebrya" loading="lazy"></button>
+        <span class="product-tag">Rizos</span>
+        <div class="product-name">Mascarilla Curl Boost</div>
+        <div class="product-note">Hidrata el rizo</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Mascarilla%20Curl%20Boost" target="_blank" rel="noopener" data-umami-event="Producto: Mascarilla Curl Boost">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
+      <li class="product" data-group="caida">
+        <button type="button" class="product-zoom" aria-label="Ver la foto más grande"><img class="product-photo" src="Imagenes/Productos/tahe-fitoxil-forte.png" alt="Programa anticaída Fitoxil Forte Classic de Tahe" loading="lazy"></button>
+        <span class="product-tag">Caída del pelo</span>
+        <div class="product-name">Fitoxil Forte</div>
+        <div class="product-note">Programa anticaída</div>
+        <a class="product-ask" href="https://wa.me/34653790166?text=Hola%20Milagros%2C%20me%20interesa%20Fitoxil%20Forte" target="_blank" rel="noopener" data-umami-event="Producto: Fitoxil Forte">Preguntar<span class="ask-long"> por este</span> →</a>
+      </li>
     </ul>
+    <div class="products-more">
+      <button type="button" class="btn btn-small btn-soft" aria-expanded="false" data-umami-event="Ver todos los productos">Ver los 18 productos</button>
+    </div>
+    <dialog class="product-dialog" aria-labelledby="product-dialog-name">
+      <button type="button" class="product-dialog-close" aria-label="Cerrar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+      <img class="product-dialog-photo" src="" alt="">
+      <span class="product-tag"></span>
+      <h3 id="product-dialog-name"></h3>
+      <p class="product-note"></p>
+      <a class="btn btn-small btn-primary" href="" target="_blank" rel="noopener">Preguntar por WhatsApp</a>
+    </dialog>
   </section>
 
   <section class="container reviews">
@@ -424,6 +530,77 @@ window.addEventListener('load', function () {
 });
 
 carousel(document.querySelector('.product-track'), false);
+
+// En escritorio solo se ven las dos primeras filas hasta que se pulsa «Ver los 18 productos»
+(function () {
+  var track = document.querySelector('.product-track');
+  var button = document.querySelector('.products-more .btn');
+  if (!track || !button) return;
+  var label = button.textContent;
+  button.addEventListener('click', function () {
+    var open = track.classList.toggle('expanded');
+    button.textContent = open ? 'Ver menos' : label;
+    button.setAttribute('aria-expanded', open);
+    if (!open) document.getElementById('productos').scrollIntoView();
+  });
+})();
+
+// Filtros por tipo de pelo: enseñan solo los productos de ese grupo
+(function () {
+  var track = document.querySelector('.product-track');
+  var filters = document.querySelectorAll('.product-filters button');
+  var more = document.querySelector('.products-more');
+  if (!track || !filters.length) return;
+  filters.forEach(function (button) {
+    button.addEventListener('click', function () {
+      var group = button.dataset.filter;
+      var all = group === 'todos';
+      filters.forEach(function (other) { other.setAttribute('aria-pressed', other === button); });
+      Array.prototype.forEach.call(track.children, function (card) {
+        card.hidden = !all && card.dataset.group !== group;
+      });
+      track.classList.toggle('filtered', !all);
+      more.hidden = !all;
+      // Vuelve al principio del carrusel y actualiza sus flechas
+      track.scrollLeft = 0;
+      track.dispatchEvent(new Event('scroll'));
+    });
+  });
+})();
+
+// Al pulsar la foto o el nombre de un producto se abre en grande, con su nombre y el enlace a WhatsApp
+(function () {
+  var dialog = document.querySelector('.product-dialog');
+  if (!dialog || !dialog.showModal) return;
+  var photo = dialog.querySelector('.product-dialog-photo');
+  var ask = dialog.querySelector('.btn');
+
+  // Se abre tanto desde la foto como desde el nombre
+  document.querySelectorAll('.product-zoom, .product-track .product-name').forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      var card = trigger.closest('.product');
+      var source = card.querySelector('.product-photo');
+      var link = card.querySelector('.product-ask');
+      var name = card.querySelector('.product-name').textContent;
+      photo.src = source.currentSrc || source.src;
+      photo.alt = source.alt;
+      dialog.querySelector('.product-tag').textContent = card.querySelector('.product-tag').textContent;
+      dialog.querySelector('h3').textContent = name;
+      dialog.querySelector('.product-note').textContent = card.querySelector('.product-note').textContent;
+      ask.href = link.href;
+      ask.dataset.umamiEvent = 'Producto ampliado: ' + name;
+      dialog.showModal();
+      if (window.umami) window.umami.track('Foto producto: ' + name);
+    });
+  });
+
+  dialog.querySelector('.product-dialog-close').addEventListener('click', function () { dialog.close(); });
+  // Un clic fuera de la ficha (en el fondo oscuro) también la cierra
+  dialog.addEventListener('click', function (event) {
+    if (event.target === dialog) dialog.close();
+  });
+})();
+
 carousel(document.querySelector('.review-track'), true);
 </script>
 
