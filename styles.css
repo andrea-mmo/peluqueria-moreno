@@ -1664,8 +1664,16 @@ a.quiz-link {
     flex-basis: 78%;
   }
 
+  /* Las flechas van debajo del carrusel, centradas */
   .products .carousel-nav {
     display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  /* Si un filtro deja tan pocos que no hay nada que deslizar, sobran las flechas */
+  .products .carousel-nav:has(.carousel-btn:disabled + .carousel-btn:disabled) {
+    display: none;
   }
 
   .product-track {
