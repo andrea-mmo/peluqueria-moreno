@@ -503,6 +503,8 @@ h2 {
 }
 
 .product {
+  /* Tres por fila; si un filtro deja menos, se quedan centrados */
+  flex: 0 0 calc((100% - 48px) / 3);
   min-width: 0;
   scroll-snap-align: start;
   display: flex;
@@ -606,6 +608,7 @@ h2 {
 .product-filters {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 28px;
 }
@@ -636,6 +639,15 @@ h2 {
   display: none;
 }
 
+/* Con un filtro puesto, los colores se alternan solo entre los productos que se ven */
+.product-track.filtered .product {
+  background: var(--peach);
+}
+
+.product-track.filtered .product.alt {
+  background: var(--sand);
+}
+
 .products-more {
   display: none;
 }
@@ -645,6 +657,24 @@ h2 {
   /* Con un filtro puesto se ven todos los de ese grupo */
   .product-track:not(.expanded):not(.filtered) .product:nth-child(n+7) {
     display: none;
+  }
+
+  /* Dos por fila, centrados y con el mismo ancho de tarjeta que a tres por fila */
+  .product-track.pairs {
+    padding: 0 calc((100% - 48px) / 6 + 12px);
+  }
+
+  .product-track.pairs .product {
+    flex-basis: calc((100% - 24px) / 2);
+  }
+
+  /* A dos por fila los colores van en damero */
+  .product-track.pairs.filtered .product {
+    background: var(--peach);
+  }
+
+  .product-track.pairs.filtered .product.alt-pairs {
+    background: var(--sand);
   }
 
   .products-more:not([hidden]) {
@@ -804,8 +834,8 @@ h2 {
 
 /* En pantallas anchas los productos van en rejilla; el carrusel es solo para móvil */
 .product-track {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 32px 24px;
   overflow: visible;
 }
@@ -1638,7 +1668,8 @@ a.quiz-link {
   }
 
   .product-track {
-    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     gap: 16px;
     overflow-x: auto;
   }
@@ -1674,6 +1705,7 @@ a.quiz-link {
   /* Los filtros van en una fila que se desliza de lado */
   .product-filters {
     flex-wrap: nowrap;
+    justify-content: flex-start;
     overflow-x: auto;
     scrollbar-width: none;
     margin-bottom: 20px;

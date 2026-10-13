@@ -560,6 +560,14 @@ carousel(document.querySelector('.product-track'), false);
         card.hidden = !all && card.dataset.group !== group;
       });
       track.classList.toggle('filtered', !all);
+      // Con cuatro productos quedan mejor dos y dos que tres y uno suelto
+      var shown = track.querySelectorAll('.product:not([hidden])');
+      track.classList.toggle('pairs', shown.length === 4);
+      // Reparte los dos colores entre los que se ven, para que sigan alternándose
+      shown.forEach(function (card, i) {
+        card.classList.toggle('alt', i % 2 === 1);
+        card.classList.toggle('alt-pairs', i % 4 === 1 || i % 4 === 2);
+      });
       more.hidden = !all;
       // Vuelve al principio del carrusel y actualiza sus flechas
       track.scrollLeft = 0;
