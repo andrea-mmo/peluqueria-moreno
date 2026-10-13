@@ -141,14 +141,19 @@
       <p><strong>Cada pelo pide una cosa.</strong> Cuéntame cómo es el tuyo y te digo cuál le va mejor.</p>
       <a class="btn btn-small btn-light" href="test" data-umami-event="Test productos">Hacer el test</a>
     </div>
-    <div class="product-filters" role="group" aria-label="Filtrar productos por tipo de pelo">
-      <button type="button" data-filter="todos" aria-pressed="true" data-umami-event="Filtro: Todos">Todos</button>
-      <button type="button" data-filter="danado" aria-pressed="false" data-umami-event="Filtro: Pelo dañado">Pelo dañado</button>
-      <button type="button" data-filter="tenido" aria-pressed="false" data-umami-event="Filtro: Teñido">Teñido</button>
-      <button type="button" data-filter="rubias" aria-pressed="false" data-umami-event="Filtro: Rubias y canas">Rubias y canas</button>
-      <button type="button" data-filter="brillo" aria-pressed="false" data-umami-event="Filtro: Sin brillo">Sin brillo</button>
-      <button type="button" data-filter="caida" aria-pressed="false" data-umami-event="Filtro: Caída y pelo débil">Caída y pelo débil</button>
-      <button type="button" data-filter="rizos" aria-pressed="false" data-umami-event="Filtro: Rizos y encrespado">Rizos y encrespado</button>
+    <div class="product-filters-wrap">
+      <div class="product-filters" role="group" aria-label="Filtrar productos por tipo de pelo">
+        <button type="button" data-filter="todos" aria-pressed="true" data-umami-event="Filtro: Todos">Todos</button>
+        <button type="button" data-filter="danado" aria-pressed="false" data-umami-event="Filtro: Pelo dañado">Pelo dañado</button>
+        <button type="button" data-filter="tenido" aria-pressed="false" data-umami-event="Filtro: Teñido">Teñido</button>
+        <button type="button" data-filter="rubias" aria-pressed="false" data-umami-event="Filtro: Rubias y canas">Rubias y canas</button>
+        <button type="button" data-filter="brillo" aria-pressed="false" data-umami-event="Filtro: Sin brillo">Sin brillo</button>
+        <button type="button" data-filter="caida" aria-pressed="false" data-umami-event="Filtro: Caída y pelo débil">Caída y pelo débil</button>
+        <button type="button" data-filter="rizos" aria-pressed="false" data-umami-event="Filtro: Rizos y encrespado">Rizos y encrespado</button>
+      </div>
+      <button type="button" class="product-filters-next" aria-label="Ver más filtros">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+      </button>
     </div>
     <ul class="product-track" tabindex="0" aria-label="Productos">
       <li class="product" data-group="danado">
@@ -543,6 +548,28 @@ carousel(document.querySelector('.product-track'), false);
     button.setAttribute('aria-expanded', open);
     if (!open) document.getElementById('productos').scrollIntoView();
   });
+})();
+
+// En móvil los filtros van en una fila que se desliza: la flecha avanza y, al llegar al final, vuelve al principio
+(function () {
+  var wrap = document.querySelector('.product-filters-wrap');
+  if (!wrap) return;
+  var bar = wrap.querySelector('.product-filters');
+  var next = wrap.querySelector('.product-filters-next');
+  function atEnd() {
+    return bar.scrollLeft >= bar.scrollWidth - bar.clientWidth - 2;
+  }
+  function update() {
+    wrap.classList.toggle('at-end', atEnd());
+    next.setAttribute('aria-label', atEnd() ? 'Volver a los primeros filtros' : 'Ver más filtros');
+  }
+  next.addEventListener('click', function () {
+    if (atEnd()) bar.scrollTo({ left: 0, behavior: 'smooth' });
+    else bar.scrollBy({ left: bar.clientWidth * 0.6, behavior: 'smooth' });
+  });
+  bar.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 })();
 
 // Filtros por tipo de pelo: enseñan solo los productos de ese grupo

@@ -635,6 +635,11 @@ h2 {
   color: var(--white);
 }
 
+/* La flecha de los filtros solo se usa en móvil */
+.product-filters-next {
+  display: none;
+}
+
 .product-track .product[hidden] {
   display: none;
 }
@@ -1731,21 +1736,69 @@ a.quiz-link {
     font-size: 12px;
   }
 
-  /* Los filtros van en rejilla de dos columnas, todos a la vista sin deslizar */
-  .product-filters {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+  /* Los filtros van en una fila que se desliza; una flecha y un difuminado avisan de que hay más */
+  .product-filters-wrap {
+    position: relative;
     margin-bottom: 20px;
   }
 
-  .product-filters button {
-    padding: 12px 6px;
-    font-size: 15px;
+  .product-filters {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 6px;
+    margin-bottom: 0;
+    padding-right: 56px;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
 
-  .product-filters button:first-child {
-    grid-column: 1 / -1;
+  .product-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-filters button {
+    flex: none;
+    padding: 8px 13px;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .product-filters-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 84px;
+    background: linear-gradient(to right, rgba(251, 243, 234, 0), var(--cream) 55%);
+    pointer-events: none;
+  }
+
+  .product-filters-next {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    z-index: 1;
+    width: 34px;
+    height: 34px;
+    transform: translateY(-50%);
+    border: 0;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .product-filters-wrap.at-end::after {
+    display: none;
+  }
+
+  /* Al final de la fila la flecha se da la vuelta y lleva al principio */
+  .product-filters-wrap.at-end .product-filters-next svg {
+    transform: rotate(180deg);
   }
 
   /* La tarjeta es estrecha: el enlace se queda en «Preguntar →» */
