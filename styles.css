@@ -611,10 +611,10 @@ h2 {
 }
 
 .product-filters button {
-  padding: 9px 18px;
-  border: 1px solid var(--line);
+  padding: 10px 20px;
+  border: 0;
   border-radius: 999px;
-  background: var(--white);
+  background: var(--peach);
   color: var(--ink);
   font-family: inherit;
   font-size: 16px;
@@ -624,13 +624,12 @@ h2 {
 }
 
 .product-filters button:hover {
-  background: var(--peach);
+  background: var(--sand);
 }
 
 .product-filters button[aria-pressed="true"] {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--cream);
+  background: var(--accent);
+  color: var(--white);
 }
 
 .product-track .product[hidden] {
