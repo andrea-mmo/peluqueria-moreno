@@ -635,6 +635,29 @@ h2 {
   color: var(--white);
 }
 
+/* Frase que avisa de que las pastillas son filtros (en móvil ya lo dice el botón) */
+.product-filters-label {
+  margin-bottom: 14px;
+  color: var(--ink-soft);
+  font-size: 16px;
+  text-align: center;
+}
+
+.product-filters-label b {
+  color: var(--ink);
+}
+
+.product-count {
+  margin: -12px 0 24px;
+  color: var(--ink-muted);
+  font-size: 15px;
+  text-align: center;
+}
+
+.product-count b {
+  color: var(--ink);
+}
+
 /* El botón que recoge los filtros solo se usa en móvil */
 .product-filters-toggle {
   display: none;
@@ -1739,6 +1762,19 @@ a.quiz-link {
   /* Los filtros se recogen en un botón; al pulsarlo se despliegan debajo */
   .product-filters-wrap {
     margin-bottom: 20px;
+  }
+
+  .product-filters-label {
+    display: none;
+  }
+
+  /* El contador solo sale cuando hay algún filtro marcado */
+  .product-count {
+    margin: -8px 0 16px;
+  }
+
+  .product-count.is-all {
+    display: none;
   }
 
   .product-filters-toggle {

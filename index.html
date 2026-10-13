@@ -142,6 +142,7 @@
       <a class="btn btn-small btn-light" href="test" data-umami-event="Test productos">Hacer el test</a>
     </div>
     <div class="product-filters-wrap">
+      <p class="product-filters-label"><b>¿Qué necesita tu pelo?</b> Marca una o varias opciones y verás solo sus productos.</p>
       <button type="button" class="product-filters-toggle" aria-expanded="false" aria-controls="product-filters">
         <span>Filtrar: <b>Todos</b></span>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9l7 7 7-7"></path></svg>
@@ -156,6 +157,7 @@
         <button type="button" data-filter="rizos" aria-pressed="false" data-umami-event="Filtro: Rizos y encrespado">Rizos y encrespado</button>
       </div>
     </div>
+    <p class="product-count is-all" role="status"><b>18 productos</b> en total</p>
     <ul class="product-track" tabindex="0" aria-label="Productos">
       <li class="product" data-group="danado">
         <span class="product-ribbon">Muy pedido</span>
@@ -558,7 +560,9 @@ carousel(document.querySelector('.product-track'), false);
   var more = document.querySelector('.products-more');
   var wrap = document.querySelector('.product-filters-wrap');
   var toggle = document.querySelector('.product-filters-toggle');
+  var count = document.querySelector('.product-count');
   if (!track || !filters.length) return;
+  var total = track.children.length;
   // En móvil los filtros están recogidos en un botón que dice cuál está puesto
   function setOpen(open) {
     wrap.classList.toggle('open', open);
@@ -588,12 +592,16 @@ carousel(document.querySelector('.product-track'), false);
         if (on) names.push(other.textContent);
       });
       toggle.querySelector('b').textContent = names.length > 1 ? names.length + ' marcados' : names[0];
+      // Con varios filtros, los productos salen agrupados en el orden de los botones
+      var groups = Array.prototype.map.call(filters, function (other) { return other.dataset.filter; });
       Array.prototype.forEach.call(track.children, function (card) {
         card.hidden = !all && active.indexOf(card.dataset.group) < 0;
+        card.style.order = all ? '' : groups.indexOf(card.dataset.group);
       });
       track.classList.toggle('filtered', !all);
       // Con cuatro productos quedan mejor dos y dos que tres y uno suelto
-      var shown = track.querySelectorAll('.product:not([hidden])');
+      var shown = Array.prototype.slice.call(track.querySelectorAll('.product:not([hidden])'));
+      shown.sort(function (a, b) { return a.style.order - b.style.order; });
       track.classList.toggle('pairs', shown.length === 4);
       // Reparte los dos colores entre los que se ven, para que sigan alternándose
       shown.forEach(function (card, i) {
@@ -601,6 +609,9 @@ carousel(document.querySelector('.product-track'), false);
         card.classList.toggle('alt-pairs', i % 4 === 1 || i % 4 === 2);
       });
       more.hidden = !all;
+      // El contador confirma cuántos productos han quedado a la vista
+      count.classList.toggle('is-all', all);
+      count.innerHTML = all ? '<b>' + total + ' productos</b> en total' : 'Viendo <b>' + shown.length + ' de ' + total + '</b> productos';
       // Vuelve al principio del carrusel y actualiza sus flechas
       track.scrollLeft = 0;
       track.dispatchEvent(new Event('scroll'));
