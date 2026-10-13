@@ -1664,6 +1664,26 @@ a.quiz-link {
     flex-basis: 78%;
   }
 
+  /* En las reseñas las flechas también bajan debajo del carrusel: la cabecera se deshace y se reordena */
+  .reviews {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .reviews .reviews-head {
+    display: contents;
+  }
+
+  .reviews .reviews-head > :first-child {
+    margin-bottom: 32px;
+  }
+
+  .reviews .carousel-nav {
+    order: 1;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
   /* Las flechas van debajo del carrusel, centradas */
   .products .carousel-nav {
     display: flex;
