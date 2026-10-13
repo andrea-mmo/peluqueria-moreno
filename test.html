@@ -84,7 +84,6 @@
         <div class="quiz-advice-block" id="result-extra-block" hidden>
           <div class="label">Y además</div>
           <p id="result-extra"></p>
-          <ul class="quiz-products" id="result-extra-products"></ul>
         </div>
         <div class="quiz-advice-block">
           <div class="label">En el salón</div>
@@ -423,7 +422,6 @@ function showResult() {
   document.getElementById('result-extra-block').hidden = !extra;
   if (extra) {
     document.getElementById('result-extra').textContent = extra.extra;
-    fillProducts(document.getElementById('result-extra-products'), extra.products);
   }
 
   var message = 'Hola Milagros, he hecho el test de la web y me ha salido «' + result.title + '»' +
