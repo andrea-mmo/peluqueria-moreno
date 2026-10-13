@@ -635,7 +635,7 @@ h2 {
   color: var(--white);
 }
 
-/* Frase que avisa de que las pastillas son filtros (en móvil ya lo dice el botón) */
+/* Frase que avisa de que los productos se pueden filtrar */
 .product-filters-label {
   margin-bottom: 14px;
   color: var(--ink-soft);
@@ -1765,7 +1765,10 @@ a.quiz-link {
   }
 
   .product-filters-label {
-    display: none;
+    margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: left;
   }
 
   /* El contador solo sale cuando hay algún filtro marcado */
