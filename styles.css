@@ -1505,7 +1505,8 @@ a.quiz-link {
     grid-template-columns: 1fr 1fr;
   }
 
-  .quiz-products li:only-child {
+  /* Si el último se queda solo en su fila, ocupa todo el ancho */
+  .quiz-products li:last-child:nth-child(odd) {
     grid-column: 1 / -1;
   }
 }

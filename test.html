@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="only light">
 <title>Test: ¿qué necesita tu pelo? | Peluquería Moreno</title>
-<meta name="description" content="Responde cuatro preguntas y descubre qué cuidados le van mejor a tu pelo. Un test rápido de Peluquería Moreno, en Valencia.">
+<meta name="description" content="Responde cinco preguntas y descubre qué cuidados le van mejor a tu pelo. Un test rápido de Peluquería Moreno, en Valencia.">
 <link rel="canonical" href="https://peluqueriamoreno.es/test">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta property="og:url" content="https://peluqueriamoreno.es/test">
 <meta property="og:title" content="Test: ¿qué necesita tu pelo?">
-<meta property="og:description" content="Responde cuatro preguntas y descubre qué cuidados le van mejor a tu pelo.">
+<meta property="og:description" content="Responde cinco preguntas y descubre qué cuidados le van mejor a tu pelo.">
 <meta property="og:image" content="https://peluqueriamoreno.es/Imagenes/tarjeta-compartir.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -39,7 +39,7 @@
     <section id="quiz-intro" class="quiz-panel">
       <div class="eyebrow">Test rápido · 1 minuto</div>
       <h1>¿Qué necesita <span class="accent">tu pelo</span>?</h1>
-      <p class="lead">Cuatro preguntas sencillas y te digo qué cuidados le van mejor, en casa y en el salón.</p>
+      <p class="lead">Cinco preguntas sencillas y te digo qué cuidados le van mejor, en casa y en el salón.</p>
       <div class="actions">
         <button type="button" id="quiz-start" class="btn btn-primary">Empezar el test</button>
         <a id="quiz-invite" class="btn btn-soft" href="https://wa.me/" target="_blank" rel="noopener">
@@ -116,7 +116,17 @@ var questions = [
       { label: 'Natural, sin tinte', points: { sano: 1 } },
       { label: 'Teñido o con baño de color', points: { color: 3 } },
       { label: 'Rubio o con mechas', points: { rubio: 3 } },
-      { label: 'Con canas que quiero cubrir', points: { color: 2 } }
+      { label: 'Con canas que quiero cubrir', points: { color: 2 } },
+      { label: 'Con canas, al natural', points: { canas: 3 } }
+    ]
+  },
+  {
+    title: ['¿Cómo es tu pelo ', 'de forma natural', '?'],
+    options: [
+      { label: 'Liso', points: {} },
+      { label: 'Ondulado', points: { rizos: 1 } },
+      { label: 'Rizado', points: { rizos: 3 } },
+      { label: 'Fino y con poco cuerpo', points: { caida: 2 } }
     ]
   },
   {
@@ -125,6 +135,7 @@ var questions = [
       { label: 'Áspero, y se me rompe con facilidad', points: { reparacion: 3 } },
       { label: 'Seco y apagado', points: { brillo: 2, reparacion: 1 } },
       { label: 'Suave, pero el color se me va enseguida', points: { color: 2 } },
+      { label: 'Se me encrespa enseguida', points: { rizos: 2 } },
       { label: 'Bien, la verdad', points: { sano: 2 } }
     ]
   },
@@ -143,7 +154,9 @@ var questions = [
       { label: 'Que brille más', points: { brillo: 3 } },
       { label: 'Que esté más suave', points: { reparacion: 2, brillo: 1 } },
       { label: 'Que el color me dure', points: { color: 2 } },
-      { label: 'Quitarle el tono amarillento', points: { rubio: 3 } },
+      { label: 'Quitarle el tono amarillento', points: { rubio: 3, canas: 1 } },
+      { label: 'Que el rizo quede definido', points: { rizos: 3 } },
+      { label: 'Que se me caiga menos', points: { caida: 3 } },
       { label: 'Un cambio de imagen', points: { sano: 1 } }
     ]
   }
@@ -152,6 +165,7 @@ var questions = [
 // card: la frase que sale en la tarjeta para compartir, en dos líneas (la segunda en color)
 // extra: la frase que sale en «Y además» cuando este resultado queda segundo
 // cita: lo que se pide en el mensaje de WhatsApp del botón «Pedir cita»
+// products: como mucho un champú y una mascarilla, más un tercero solo si es de otro tipo (aceite, sérum, loción)
 var results = {
   rubio: {
     name: 'Rubio sin amarillos',
@@ -163,7 +177,8 @@ var results = {
     text: 'Los rubios y las mechas tienden a amarillear con los lavados, el sol y el agua. Con un cuidado antiamarillo en casa el tono se mantiene limpio mucho más tiempo.',
     products: [
       { name: 'Champú No-Yellow', img: 'champu-no-yellow.png' },
-      { name: 'Mascarilla No-Yellow', img: 'mascarilla-no-yellow.png' }
+      { name: 'Mascarilla No-Yellow', img: 'mascarilla-no-yellow.png' },
+      { name: 'Gotas Blonde Miracle', img: 'gotas-blonde-miracle.png' }
     ],
     salon: 'Repasamos las mechas y matizamos el tono cuando haga falta, cuidando que el pelo no se estropee.'
   },
@@ -176,7 +191,8 @@ var results = {
     title: 'Tu color necesita protección',
     text: 'El pelo teñido pierde intensidad con cada lavado. Lo que mejor le va es un cuidado que selle el color y lo mantenga vivo entre una visita y la siguiente.',
     products: [
-      { name: 'Mascarilla Color Perfect', img: 'mascarilla-color-perfect.png' }
+      { name: 'Mascarilla Color Perfect', img: 'mascarilla-color-perfect.png' },
+      { name: 'Aceite Color Perfect', img: 'aceite-color-perfect.png' }
     ],
     salon: 'Buscamos juntas el tono que más te favorece y cubrimos las canas, con tinte o con baño de color sin amoniaco.'
   },
@@ -203,9 +219,53 @@ var results = {
     title: 'A tu pelo le falta brillo',
     text: 'Cuando el pelo está seco, se ve apagado aunque esté sano. Con hidratación vuelve a tener luz y movimiento.',
     products: [
-      { name: 'Mascarilla Shecare Repair', img: 'mascarilla-shecare-repair.png' }
+      { name: 'Champú K-Glicolic', img: 'champu-tahe-k-glicolic.png' },
+      { name: 'Mascarilla Shecare Repair', img: 'mascarilla-shecare-repair.png' },
+      { name: 'Ampollas Shecare Repair', img: 'ampollas-shecare-repair.png' }
     ],
     salon: 'Un tratamiento de hidratación para devolverle el brillo, y te cuento cómo mantenerlo en casa.'
+  },
+  rizos: {
+    name: 'Rizos y encrespado',
+    cita: 'un corte y un tratamiento de hidratación para el rizo',
+    extra: 'Tu pelo también pide definición, para que coja forma y no se encrespe.',
+    card: ['Mi pelo pide', 'definición'],
+    tagline: 'Para que coja forma, con hidratación y sin encrespar.',
+    title: 'Tu pelo pide definición',
+    text: 'El pelo rizado, ondulado o que se encrespa con facilidad suele estar falto de hidratación. Con productos pensados para él coge forma y se mantiene definido.',
+    products: [
+      { name: 'Champú Curl Boost', img: 'champu-curl-boost.png' },
+      { name: 'Mascarilla Curl Boost', img: 'mascarilla-curl-boost.png' },
+      { name: 'Style-In Oil no Oil', img: 'style-in-oil-no-oil.png' }
+    ],
+    salon: 'Un corte que respete la forma de tu pelo y un tratamiento de hidratación para que quede definido.'
+  },
+  caida: {
+    name: 'Fuerza y anticaída',
+    cita: 'que me mires la caída del pelo',
+    extra: 'Tu pelo también pide fuerza, para que se caiga menos y gane cuerpo.',
+    card: ['Mi pelo pide', 'fuerza'],
+    tagline: 'Para que se caiga menos y gane cuerpo.',
+    title: 'Tu pelo pide fuerza',
+    text: 'Cuando el pelo se cae más de la cuenta o se nota fino y sin cuerpo, lo primero es cuidar el cuero cabelludo. Con constancia en casa, el pelo gana fuerza.',
+    products: [
+      { name: 'Fitoxil Forte', img: 'tahe-fitoxil-forte.png' },
+      { name: 'Loción Energy', img: 'locion-energy.png' }
+    ],
+    salon: 'Miramos juntas cómo está el cuero cabelludo y te cuento qué tratamiento seguir y cómo aplicarlo en casa.'
+  },
+  canas: {
+    name: 'Canas con luz',
+    cita: 'un corte y matizar las canas',
+    extra: 'Tus canas también agradecen un matiz, para que se vean plateadas y con luz.',
+    card: ['Mis canas piden', 'luz'],
+    tagline: 'Para llevarlas al natural, plateadas y sin amarillos.',
+    title: 'Tus canas piden luz',
+    text: 'Las canas tienden a amarillear y a verse apagadas. Con un cuidado matizador en casa se mantienen plateadas y luminosas, sin necesidad de teñir.',
+    products: [
+      { name: 'Mascarilla Grey by Day', img: 'mascarilla-grey-by-day.png' }
+    ],
+    salon: 'Un corte que las luzca y, si hace falta, un matiz para igualar el tono.'
   },
   sano: {
     name: 'Pelo sano',
@@ -220,7 +280,7 @@ var results = {
 };
 
 // Orden de desempate: el primero de la lista gana si hay empate a puntos
-var order = ['rubio', 'color', 'reparacion', 'brillo', 'sano'];
+var order = ['rubio', 'canas', 'color', 'caida', 'rizos', 'reparacion', 'brillo', 'sano'];
 
 var panels = {
   intro: document.getElementById('quiz-intro'),
@@ -306,8 +366,10 @@ function ranking() {
   var ranked = order.slice().sort(function (a, b) {
     return (scores[b] || 0) - (scores[a] || 0);
   });
+  // Rubio y canas comparten la respuesta del tono amarillento: no se recomiendan a la vez
+  var pair = { rubio: 'canas', canas: 'rubio' };
   var second = ranked.slice(1).filter(function (key) {
-    return key !== 'sano' && (scores[key] || 0) >= 2;
+    return key !== 'sano' && key !== pair[ranked[0]] && (scores[key] || 0) >= 2;
   })[0];
   return { first: results[ranked[0]], second: second ? results[second] : null };
 }
