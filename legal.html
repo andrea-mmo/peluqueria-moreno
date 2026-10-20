@@ -85,9 +85,17 @@
     params.delete('seccion');
     var rest = params.toString();
     history.replaceState(null, '', '/' + id + (rest ? '?' + rest : ''));
-    target.scrollIntoView();
-    // Las fotos que terminan de cargar arriba pueden mover la sección; se vuelve a colocar
-    window.addEventListener('load', function () { target.scrollIntoView(); });
+    // El salto es directo, sin el desplazamiento suave de la web, para que no se quede a medias al cargar
+    var jump = function () {
+      var html = document.documentElement;
+      html.style.scrollBehavior = 'auto';
+      target.scrollIntoView();
+      html.style.scrollBehavior = '';
+    };
+    jump();
+    // Las fotos y las letras que terminan de cargar arriba pueden mover la sección; se vuelve a colocar
+    window.addEventListener('load', jump);
+    if (document.fonts) document.fonts.ready.then(jump);
   }
   // Los enlaces a secciones de esta misma página bajan sin recargar ni añadir nada a la dirección
   document.querySelectorAll('a[href^="/"]').forEach(function (link) {
