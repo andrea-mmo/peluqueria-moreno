@@ -74,5 +74,31 @@
   </div>
 </footer>
 
+<script>
+// Direcciones sin #: /productos, /privacidad… llegan con ?seccion= y aquí se baja a esa parte
+(function () {
+  var params = new URLSearchParams(location.search);
+  var id = params.get('seccion') || (params.get('filtro') && document.getElementById('productos') ? 'productos' : null);
+  var target = id && document.getElementById(id);
+  if (target) {
+    // La barra de direcciones se queda con la dirección corta, sin ?seccion=
+    params.delete('seccion');
+    var rest = params.toString();
+    history.replaceState(null, '', '/' + id + (rest ? '?' + rest : ''));
+    target.scrollIntoView();
+    // Las fotos que terminan de cargar arriba pueden mover la sección; se vuelve a colocar
+    window.addEventListener('load', function () { target.scrollIntoView(); });
+  }
+  // Los enlaces a secciones de esta misma página bajan sin recargar ni añadir nada a la dirección
+  document.querySelectorAll('a[href^="/"]').forEach(function (link) {
+    var section = document.getElementById(link.getAttribute('href').slice(1));
+    if (!section) return;
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      section.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+})();
+</script>
 </body>
 </html>
