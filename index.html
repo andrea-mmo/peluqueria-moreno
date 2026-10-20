@@ -728,14 +728,22 @@ carousel(document.querySelector('.review-track'), true);
     window.addEventListener('load', jump);
     if (document.fonts) document.fonts.ready.then(jump);
   }
-  // Los enlaces a secciones de esta misma página bajan sin recargar ni añadir nada a la dirección
+  // Los enlaces a secciones de esta misma página bajan sin recargar y ponen su dirección (/productos…) en la barra
   document.querySelectorAll('a[href^="/"]').forEach(function (link) {
-    var section = document.getElementById(link.getAttribute('href').slice(1));
+    var path = link.getAttribute('href');
+    var section = document.getElementById(path.slice(1));
     if (!section) return;
     link.addEventListener('click', function (event) {
       event.preventDefault();
       section.scrollIntoView({ behavior: 'smooth' });
+      if (location.pathname !== path) history.pushState(null, '', path);
     });
+  });
+  // Con el botón de atrás del navegador se vuelve a la sección anterior, o arriba del todo
+  window.addEventListener('popstate', function () {
+    var section = document.getElementById(location.pathname.slice(1));
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 })();
 </script>
